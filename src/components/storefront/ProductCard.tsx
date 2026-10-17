@@ -32,7 +32,7 @@ export default function ProductCard({
 
   const isOutOfStock = product.stock_status === 'out_of_stock';
 
-  // Seed realistic ratings if not stored in DB
+  // Realistic seed ratings
   const ratingValue = 4.7 + ((product.name.charCodeAt(0) % 3) * 0.1);
   const reviewCount = 45 + (product.name.charCodeAt(1) % 180);
 
@@ -53,25 +53,25 @@ export default function ProductCard({
   };
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-3.5 sm:p-4 shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300">
-      {/* Top Header: Badge on left + Heart on right (Mockup exact) */}
-      <div className="flex items-center justify-between mb-2">
+    <div className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs hover:shadow-xl hover:border-slate-300 transition-all duration-300">
+      {/* Top Header: Badge on left + Heart on right */}
+      <div className="flex items-center justify-between mb-2 z-10">
         <div>
           {discountPercent > 0 ? (
-            <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-[#EF4444] text-white shadow-xs">
+            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-600 text-white shadow-2xs">
               -{Math.round(discountPercent)}%
             </span>
           ) : product.best_seller ? (
-            <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-[#EF4444] text-white shadow-xs">
+            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500 text-slate-950 shadow-2xs">
               Best Seller
             </span>
           ) : product.new_arrival ? (
-            <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-[#06B6D4] text-white shadow-xs">
+            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-600 text-white shadow-2xs">
               New
             </span>
           ) : (
-            <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-black bg-[#06B6D4] text-white shadow-xs">
-              Featured
+            <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">
+              Original
             </span>
           )}
         </div>
@@ -79,7 +79,7 @@ export default function ProductCard({
         {/* Heart Wishlist Icon */}
         <button
           onClick={toggleWishlist}
-          className="p-1 rounded-full text-slate-400 hover:text-rose-500 transition cursor-pointer"
+          className="p-1.5 rounded-full text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition cursor-pointer"
           aria-label="Add to wishlist"
         >
           <Heart
@@ -93,7 +93,7 @@ export default function ProductCard({
       {/* Product Image Clickable Link */}
       <Link
         href={`/products/${product.slug}`}
-        className="relative aspect-square w-full rounded-xl bg-slate-50/60 p-3 flex items-center justify-center overflow-hidden my-2 group-hover:bg-slate-100/60 transition"
+        className="relative aspect-square w-full rounded-xl bg-slate-50 p-4 flex items-center justify-center overflow-hidden my-2 group-hover:bg-slate-100/70 transition"
       >
         <Image
           src={imageError ? '/images/product-placeholder.png' : primaryImage}
@@ -108,16 +108,23 @@ export default function ProductCard({
 
       {/* Product Information */}
       <div className="space-y-1.5 mt-1">
+        {/* Category Tag */}
+        {product.category && (
+          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block line-clamp-1">
+            {product.category.name}
+          </span>
+        )}
+
         {/* Title */}
         <Link
           href={`/products/${product.slug}`}
-          className="block font-bold text-xs sm:text-sm text-slate-900 hover:text-blue-600 transition line-clamp-1"
+          className="block font-bold text-xs sm:text-sm text-slate-900 group-hover:text-blue-600 transition line-clamp-1"
           title={product.name}
         >
           {product.name}
         </Link>
 
-        {/* Pricing with strikethrough (Mockup exact) */}
+        {/* Pricing with strikethrough */}
         <div className="flex items-baseline gap-2">
           <span className="font-extrabold text-sm sm:text-base text-slate-900 font-display">
             {formatPrice(product.price)}
@@ -129,7 +136,7 @@ export default function ProductCard({
           )}
         </div>
 
-        {/* Rating with Yellow Star */}
+        {/* Star Rating */}
         <div className="flex items-center gap-1 text-[11px] text-slate-600 font-semibold">
           <Star className="w-3.5 h-3.5 fill-[#F59E0B] text-[#F59E0B]" />
           <span>{ratingValue.toFixed(1)}</span>
@@ -137,26 +144,26 @@ export default function ProductCard({
         </div>
       </div>
 
-      {/* Dark Pill Add to Cart Button (Mockup exact) */}
+      {/* Add to Cart Button */}
       <div className="pt-3">
         <button
           onClick={handleAddToCart}
           disabled={isOutOfStock}
-          className={`w-full py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold transition-all duration-200 shadow-xs cursor-pointer active:scale-95 ${
+          className={`w-full py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold transition-all duration-200 shadow-2xs cursor-pointer active:scale-95 ${
             isOutOfStock
               ? 'bg-slate-200 text-slate-500 cursor-not-allowed'
               : adding
               ? 'bg-emerald-600 text-white'
-              : 'bg-[#0F172A] hover:bg-[#1E293B] text-white hover:shadow-md'
+              : 'bg-slate-900 hover:bg-slate-800 text-white hover:shadow-md'
           }`}
         >
           {adding ? (
             <>
               <Check className="w-3.5 h-3.5" />
-              <span>Added!</span>
+              <span>Added to Cart!</span>
             </>
           ) : isOutOfStock ? (
-            <span>Sold Out</span>
+            <span>Out of Stock</span>
           ) : (
             <>
               <ShoppingCart className="w-3.5 h-3.5" />

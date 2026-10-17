@@ -7,9 +7,11 @@ import {
   Package,
   CheckCircle2,
   ArrowRight,
-  Eye,
   Printer,
   Tag,
+  Plus,
+  Truck,
+  ExternalLink,
 } from 'lucide-react';
 import { createServiceClient } from '@/lib/supabase/server';
 import { formatPrice } from '@/lib/utils';
@@ -21,7 +23,7 @@ export default async function AdminDashboardPage() {
   const supabase = createServiceClient();
 
   const [ordersRes, productsRes, couponsRes] = await Promise.all([
-    supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(8),
+    supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(10),
     supabase.from('products').select('id, active', { count: 'exact' }),
     supabase.from('coupons').select('id', { count: 'exact' }),
   ]);
@@ -39,21 +41,42 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
-      {/* Header */}
-      <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-black text-slate-900">
-          Store Operations Dashboard
-        </h1>
-        <p className="text-xs text-slate-500 mt-1">
-          Live overview of sales, incoming customer dispatches, and catalogue inventory for <strong>AS Store</strong>.
-        </p>
+      {/* Top Banner & Quick Actions */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+        <div>
+          <h1 className="font-display text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Store Command Center
+          </h1>
+          <p className="text-xs text-slate-500 mt-1">
+            Real-time sales, order dispatches, and catalogue inventory for <strong>AS Store Pakistan</strong>.
+          </p>
+        </div>
+
+        {/* Quick Action Buttons */}
+        <div className="flex items-center gap-2.5">
+          <Link
+            href="/admin/products"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition shadow-xs"
+          >
+            <Plus className="w-4 h-4 text-[#F59E0B]" />
+            <span>Manage Products</span>
+          </Link>
+          <Link
+            href="/admin/orders"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-bold text-xs transition shadow-2xs"
+          >
+            <ShoppingBag className="w-4 h-4 text-blue-600" />
+            <span>Process Orders</span>
+          </Link>
+        </div>
       </div>
 
       {/* Metrics Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        {/* Revenue */}
+        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-bold uppercase">Recorded Revenue</span>
+            <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Recorded Revenue</span>
             <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
               <TrendingUp className="w-4 h-4" />
             </div>
@@ -61,12 +84,13 @@ export default async function AdminDashboardPage() {
           <div className="font-display text-2xl font-black text-slate-900">
             {formatPrice(totalRevenue)}
           </div>
-          <span className="text-[11px] text-slate-400 block">From recent verified sales</span>
+          <span className="text-[11px] text-slate-400 block font-medium">Recent processed customer orders</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+        {/* Pending Orders */}
+        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-bold uppercase">Pending Verification</span>
+            <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Pending Orders</span>
             <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
               <Clock className="w-4 h-4" />
             </div>
@@ -74,14 +98,16 @@ export default async function AdminDashboardPage() {
           <div className="font-display text-2xl font-black text-amber-600">
             {pendingOrders}
           </div>
-          <Link href="/admin/orders" className="text-[11px] font-bold text-blue-600 hover:text-blue-700">
-            Review pending orders →
+          <Link href="/admin/orders" className="text-[11px] font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+            <span>Verify & dispatch orders</span>
+            <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+        {/* Catalogue */}
+        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-bold uppercase">Active Products</span>
+            <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Active Inventory</span>
             <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
               <Package className="w-4 h-4" />
             </div>
@@ -89,23 +115,26 @@ export default async function AdminDashboardPage() {
           <div className="font-display text-2xl font-black text-slate-900">
             {activeProducts} / {totalProducts}
           </div>
-          <Link href="/admin/products" className="text-[11px] font-bold text-blue-600 hover:text-blue-700">
-            Manage product catalogue →
+          <Link href="/admin/products" className="text-[11px] font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+            <span>Update pricing & stock</span>
+            <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+        {/* Active Coupons */}
+        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-bold uppercase">Active Coupons</span>
+            <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Discount Codes</span>
             <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
               <Tag className="w-4 h-4" />
             </div>
           </div>
           <div className="font-display text-2xl font-black text-slate-900">
-            {totalCoupons} Codes
+            {totalCoupons} Active
           </div>
-          <Link href="/admin/coupons" className="text-[11px] font-bold text-blue-600 hover:text-blue-700">
-            View promo campaigns →
+          <Link href="/admin/coupons" className="text-[11px] font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+            <span>Manage discount vouchers</span>
+            <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
       </div>
@@ -113,19 +142,22 @@ export default async function AdminDashboardPage() {
       {/* Recent Orders Section */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-display font-black text-base text-slate-900">
-            Recent Customer Orders
-          </h2>
+          <div>
+            <h2 className="font-display font-black text-base text-slate-900">
+              Recent Incoming Orders
+            </h2>
+            <p className="text-[11px] text-slate-500">Live order queue with 1-click printable courier packing slips</p>
+          </div>
           <Link
             href="/admin/orders"
             className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 transition"
           >
-            <span>View All Orders</span>
+            <span>View All Orders ({totalOrders})</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-xs">
+        <div className="rounded-2xl bg-white border border-slate-200/90 overflow-hidden shadow-2xs">
           {recentOrders.length === 0 ? (
             <div className="p-12 text-center text-slate-400 text-xs">
               No orders have been recorded yet.
@@ -133,13 +165,13 @@ export default async function AdminDashboardPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-50 text-slate-600 border-b border-slate-200 font-bold uppercase tracking-wider text-[11px]">
+                <thead className="bg-slate-50/80 text-slate-600 border-b border-slate-200 font-bold uppercase tracking-wider text-[11px]">
                   <tr>
                     <th className="p-4">Order ID</th>
-                    <th className="p-4">Customer</th>
+                    <th className="p-4">Customer Details</th>
                     <th className="p-4">Destination</th>
-                    <th className="p-4">Total Amount</th>
-                    <th className="p-4">Status</th>
+                    <th className="p-4">Total COD</th>
+                    <th className="p-4">Order Status</th>
                     <th className="p-4 text-right">Dispatch Slip</th>
                   </tr>
                 </thead>
@@ -180,10 +212,10 @@ export default async function AdminDashboardPage() {
                         <Link
                           href={`/admin/orders/${ord.id}/slip`}
                           target="_blank"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-black text-white font-bold text-[11px] transition shadow-xs"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] transition shadow-xs"
                         >
                           <Printer className="w-3.5 h-3.5" />
-                          <span>Slip</span>
+                          <span>Print Slip</span>
                         </Link>
                       </td>
                     </tr>

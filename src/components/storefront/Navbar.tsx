@@ -12,6 +12,8 @@ import {
   X,
   Truck,
   ChevronDown,
+  PhoneCall,
+  Zap,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -24,7 +26,7 @@ export default function Navbar({
 }: {
   categories: Category[];
   settings: Settings | null;
-}) {
+  }) {
   const router = useRouter();
   const pathname = usePathname();
   const { totalItems, openCart } = useCart();
@@ -33,10 +35,10 @@ export default function Navbar({
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [categoriesDropdown, setCategoriesDropdown] = useState(false);
-  const [wishlistCount] = useState(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const freeThreshold = settings?.free_shipping_threshold ?? 3000;
+  const businessPhone = settings?.contact_phone || '+92 320 1042634';
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,37 +60,61 @@ export default function Navbar({
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 bg-[#0B0F19] text-white shadow-lg">
-      {/* Top Tier: Logo, Search Bar, Account / Wishlist / Cart */}
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
+      {/* Top Notification / Hotline Strip */}
+      <div className="bg-slate-950 text-slate-300 text-[11px] py-1.5 px-4 sm:px-6 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>
+              ⚡ <strong className="text-white">Free Express Delivery</strong> on orders over Rs. {freeThreshold.toLocaleString()}
+            </span>
+          </div>
+
+          <div className="hidden sm:flex items-center gap-4 text-slate-400">
+            <a
+              href={`tel:${businessPhone.replace(/\s+/g, '')}`}
+              className="flex items-center gap-1.5 hover:text-[#F59E0B] transition"
+            >
+              <PhoneCall className="w-3 h-3 text-[#F59E0B]" />
+              <span className="font-semibold text-slate-200">{businessPhone}</span>
+            </a>
+            <span className="text-slate-700">|</span>
+            <span className="text-slate-400">Cash on Delivery Nationwide</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Tier: Logo, Search Bar, Action Pills */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-4 lg:gap-8">
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800"
+            className="lg:hidden p-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition"
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          {/* Brand Logo */}
+          {/* Brand Logo in Light Mode */}
           <div className="shrink-0">
-            <AsStoreLogo variant="dark" size="md" />
+            <AsStoreLogo variant="light" size="md" />
           </div>
 
-          {/* Wide Rounded Search Bar (Mockup exact) */}
+          {/* Modern Capsule Search Bar */}
           <div className="hidden md:flex flex-1 max-w-xl mx-auto">
             <form onSubmit={handleSearchSubmit} className="relative w-full">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for products, brands and more..."
-                className="w-full pl-5 pr-12 py-2.5 rounded-full bg-white text-slate-900 placeholder:text-slate-400 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#F59E0B] shadow-inner"
+                placeholder="Search power banks, airbuds, fast chargers, cables..."
+                className="w-full pl-5 pr-12 py-2.5 rounded-full bg-slate-100/80 hover:bg-slate-100 focus:bg-white text-slate-900 placeholder:text-slate-400 text-xs sm:text-sm font-medium border border-slate-200/90 focus:border-[#F59E0B] focus:ring-3 focus:ring-amber-500/15 focus:outline-none transition shadow-inner"
               />
               <button
                 type="submit"
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#F59E0B] transition"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 transition p-1"
                 aria-label="Search"
               >
                 <Search className="w-4 h-4" />
@@ -96,36 +122,36 @@ export default function Navbar({
             </form>
           </div>
 
-          {/* Right Action Icons: Account, Wishlist, Cart */}
-          <div className="flex items-center gap-4 sm:gap-6 shrink-0 text-xs font-semibold">
+          {/* Right Action Items */}
+          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
             {/* Account */}
             <Link
               href={user ? '/account' : '/admin/login'}
-              className="flex items-center gap-1.5 text-slate-200 hover:text-[#F59E0B] transition"
-              title={user ? 'Customer Account' : 'Store Admin Portal'}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-slate-700 hover:text-slate-950 hover:bg-slate-100 text-xs font-semibold transition"
+              title={user ? 'Customer Account' : 'Admin Portal'}
             >
-              <User className="w-4 h-4" />
-              <span className="hidden sm:inline">Account</span>
+              <User className="w-4 h-4 text-slate-600" />
+              <span>Account</span>
             </Link>
 
             {/* Wishlist */}
             <Link
               href="/products?deals=true"
-              className="flex items-center gap-1.5 text-slate-200 hover:text-[#F59E0B] transition"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-slate-700 hover:text-rose-600 hover:bg-rose-50 text-xs font-semibold transition"
               title="Saved Items"
             >
-              <Heart className="w-4 h-4" />
-              <span className="hidden sm:inline">Wishlist</span>
+              <Heart className="w-4 h-4 text-slate-600 hover:text-rose-600" />
+              <span>Wishlist</span>
             </Link>
 
-            {/* Cart Trigger */}
+            {/* Modern Cart Button */}
             <button
               onClick={openCart}
-              className="flex items-center gap-1.5 text-slate-200 hover:text-[#F59E0B] transition group cursor-pointer"
-              aria-label="View Cart"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs hover:shadow-md active:scale-95 cursor-pointer group"
+              aria-label="View Shopping Cart"
             >
               <div className="relative">
-                <ShoppingBag className="w-4 h-4 text-white group-hover:text-[#F59E0B] transition" />
+                <ShoppingBag className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
                 <span className="absolute -top-1.5 -right-2 flex items-center justify-center min-w-[15px] h-[15px] px-0.5 rounded-full bg-[#F59E0B] text-slate-950 text-[9px] font-black leading-none shadow-xs">
                   {totalItems}
                 </span>
@@ -135,15 +161,15 @@ export default function Navbar({
           </div>
         </div>
 
-        {/* Search Bar on Mobile */}
+        {/* Mobile Search Input */}
         <div className="md:hidden pb-3">
           <form onSubmit={handleSearchSubmit} className="relative w-full">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for products, brands and more..."
-              className="w-full pl-4 pr-10 py-2 rounded-full bg-white text-slate-900 placeholder:text-slate-400 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
+              placeholder="Search power banks, airbuds, chargers..."
+              className="w-full pl-4 pr-10 py-2 rounded-full bg-slate-100 text-slate-900 placeholder:text-slate-400 text-xs font-medium border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
             />
             <button
               type="submit"
@@ -155,33 +181,37 @@ export default function Navbar({
         </div>
       </div>
 
-      {/* Sub Tier: All Categories button, Main Navigation Links, Free Delivery Banner */}
-      <div className="border-t border-slate-800/80 bg-[#0B0F19]">
+      {/* Sub Tier: Categories & Secondary Navigation */}
+      <div className="border-t border-slate-100 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-12 text-xs">
+          <div className="flex items-center justify-between h-11 text-xs">
             {/* Left: All Categories Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setCategoriesDropdown(!categoriesDropdown)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/80 font-bold transition"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-800 hover:text-slate-950 hover:bg-slate-200/60 font-bold transition"
               >
                 <Menu className="w-3.5 h-3.5 text-[#F59E0B]" />
                 <span>All Categories</span>
-                <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform ${categoriesDropdown ? 'rotate-180' : ''}`} />
+                <ChevronDown
+                  className={`w-3 h-3 text-slate-500 transition-transform duration-200 ${
+                    categoriesDropdown ? 'rotate-180' : ''
+                  }`}
+                />
               </button>
 
               {/* Categories Menu Popup */}
               {categoriesDropdown && (
-                <div className="absolute left-0 mt-2 w-56 rounded-2xl bg-white border border-slate-200 shadow-2xl py-2 z-50 text-slate-800 animate-slide-up">
-                  <div className="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-slate-400">
-                    Product Categories
+                <div className="absolute left-0 mt-2 w-60 rounded-2xl bg-white border border-slate-200 shadow-2xl py-2 z-50 text-slate-800 animate-slide-up">
+                  <div className="px-3.5 py-1.5 text-[10px] uppercase font-black tracking-wider text-slate-400">
+                    Mobile Accessories
                   </div>
                   {categories.map((cat) => (
                     <Link
                       key={cat.id}
                       href={`/products?category=${cat.slug}`}
                       onClick={() => setCategoriesDropdown(false)}
-                      className="block px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-[#F59E0B] transition"
+                      className="block px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#F59E0B] transition"
                     >
                       {cat.name}
                     </Link>
@@ -192,136 +222,163 @@ export default function Navbar({
                       onClick={() => setCategoriesDropdown(false)}
                       className="block px-4 py-2 text-xs font-bold text-blue-600 hover:bg-slate-50 transition"
                     >
-                      View All Products →
+                      Browse Entire Catalogue →
                     </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Center Navigation Links (Exact to Mockup) */}
-            <nav className="hidden lg:flex items-center gap-8 font-semibold">
+            {/* Center Navigation Links */}
+            <nav className="hidden lg:flex items-center gap-7 font-semibold">
               <Link
                 href="/"
-                className={`py-3.5 border-b-2 transition ${
+                className={`py-3 border-b-2 transition ${
                   pathname === '/'
-                    ? 'border-[#F59E0B] text-[#F59E0B] font-bold'
-                    : 'border-transparent text-slate-300 hover:text-white'
+                    ? 'border-[#F59E0B] text-slate-950 font-bold'
+                    : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Home
               </Link>
               <Link
                 href="/products"
-                className={`py-3.5 border-b-2 transition ${
+                className={`py-3 border-b-2 transition ${
                   pathname === '/products'
-                    ? 'border-[#F59E0B] text-[#F59E0B] font-bold'
-                    : 'border-transparent text-slate-300 hover:text-white'
+                    ? 'border-[#F59E0B] text-slate-950 font-bold'
+                    : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Shop
+                Shop All
               </Link>
               <Link
                 href="/products?deals=true"
-                className="py-3.5 border-b-2 border-transparent text-slate-300 hover:text-white transition"
+                className="py-3 border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition flex items-center gap-1"
               >
-                Deals
+                <Zap className="w-3 h-3 text-[#F59E0B]" />
+                <span>Hot Deals</span>
               </Link>
               <Link
                 href="/products?sort=newest"
-                className="py-3.5 border-b-2 border-transparent text-slate-300 hover:text-white transition"
+                className="py-3 border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition"
               >
                 New Arrivals
               </Link>
               <Link
                 href="/about"
-                className={`py-3.5 border-b-2 transition ${
+                className={`py-3 border-b-2 transition ${
                   pathname === '/about'
-                    ? 'border-[#F59E0B] text-[#F59E0B] font-bold'
-                    : 'border-transparent text-slate-300 hover:text-white'
+                    ? 'border-[#F59E0B] text-slate-950 font-bold'
+                    : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
                 About Us
               </Link>
               <Link
                 href="/contact"
-                className={`py-3.5 border-b-2 transition ${
+                className={`py-3 border-b-2 transition ${
                   pathname === '/contact'
-                    ? 'border-[#F59E0B] text-[#F59E0B] font-bold'
-                    : 'border-transparent text-slate-300 hover:text-white'
+                    ? 'border-[#F59E0B] text-slate-950 font-bold'
+                    : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Contact
+                Contact & Support
               </Link>
             </nav>
 
-            {/* Right: Free Delivery Notice */}
-            <div className="flex items-center gap-2 text-slate-200">
-              <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-[#F59E0B] shrink-0">
-                <Truck className="w-3.5 h-3.5" />
+            {/* Right: Free Delivery Pill */}
+            <div className="flex items-center gap-2 text-slate-700">
+              <div className="w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center text-[#F59E0B] shrink-0">
+                <Truck className="w-3 h-3" />
               </div>
-              <div className="text-[11px] leading-tight">
-                <span className="font-bold block text-white">Free Delivery</span>
-                <span className="text-slate-400 text-[10px]">On orders above Rs. {freeThreshold.toLocaleString()}</span>
-              </div>
+              <span className="text-[11px] font-semibold">
+                Free Delivery above <strong className="text-slate-950">Rs. {freeThreshold.toLocaleString()}</strong>
+              </span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-28 z-50 bg-black/60 backdrop-blur-xs animate-fade-in">
-          <div className="w-4/5 max-w-sm h-full p-6 overflow-y-auto bg-[#0B0F19] text-white border-r border-slate-800 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <span className="font-bold text-sm text-[#F59E0B]">Navigation</span>
-              <button onClick={() => setMobileMenuOpen(false)}>
-                <X className="w-5 h-5 text-slate-400" />
+        <div className="lg:hidden fixed inset-0 top-[110px] z-50 bg-black/40 backdrop-blur-xs animate-fade-in">
+          <div className="w-4/5 max-w-sm h-full p-6 overflow-y-auto bg-white text-slate-900 border-r border-slate-200 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <span className="font-bold text-sm text-slate-900">Navigation Menu</span>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700"
+              >
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-3 font-semibold text-sm">
-              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-200 hover:text-[#F59E0B]">
+            <div className="space-y-2 font-semibold text-sm">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+              >
                 Home
               </Link>
-              <Link href="/products" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-200 hover:text-[#F59E0B]">
-                Shop
+              <Link
+                href="/products"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+              >
+                Shop All
               </Link>
-              <Link href="/products?deals=true" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-200 hover:text-[#F59E0B]">
-                Deals
+              <Link
+                href="/products?deals=true"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+              >
+                Hot Deals
               </Link>
-              <Link href="/products?sort=newest" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-200 hover:text-[#F59E0B]">
+              <Link
+                href="/products?sort=newest"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+              >
                 New Arrivals
               </Link>
-              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-200 hover:text-[#F59E0B]">
+              <Link
+                href="/about"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+              >
                 About Us
               </Link>
-              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-200 hover:text-[#F59E0B]">
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+              >
                 Contact
               </Link>
             </div>
 
-            <div className="pt-4 border-t border-slate-800 space-y-2">
+            <div className="pt-4 border-t border-slate-100 space-y-2">
               <span className="text-[11px] uppercase tracking-wider text-slate-400 font-bold block">
-                Popular Categories
+                Top Categories
               </span>
               {categories.slice(0, 6).map((cat) => (
                 <Link
                   key={cat.id}
                   href={`/products?category=${cat.slug}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs text-slate-300 hover:text-white py-1"
+                  className="block text-xs text-slate-600 hover:text-slate-950 py-1"
                 >
                   {cat.name}
                 </Link>
               ))}
             </div>
 
-            <div className="pt-4 border-t border-slate-800 space-y-2">
+            <div className="pt-4 border-t border-slate-100 space-y-2">
               <Link
                 href="/admin/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-xs font-bold text-blue-400 hover:text-blue-300 py-1"
+                className="block text-xs font-bold text-blue-600 hover:text-blue-700 py-1"
               >
                 Store Admin Portal →
               </Link>

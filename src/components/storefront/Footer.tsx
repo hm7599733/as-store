@@ -6,6 +6,9 @@ import {
   Send,
   CheckCircle2,
   Lock,
+  PhoneCall,
+  Mail,
+  MapPin,
 } from 'lucide-react';
 import AsStoreLogo from '@/components/brand/AsStoreLogo';
 import type { Settings } from '@/types/database';
@@ -13,6 +16,8 @@ import type { Settings } from '@/types/database';
 export default function Footer({ settings }: { settings: Settings | null }) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+
+  const businessPhone = settings?.contact_phone || settings?.whatsapp_number || '+92 320 1042634';
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,25 +29,39 @@ export default function Footer({ settings }: { settings: Settings | null }) {
   };
 
   return (
-    <footer className="bg-[#0B0F19] text-white border-t border-slate-800/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-slate-800/80">
-          {/* Column 1: Brand & Social (4 cols) */}
+    <footer className="bg-slate-950 text-white border-t border-slate-850">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-slate-850">
+          {/* Column 1: Brand & Contact Info (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <AsStoreLogo variant="dark" size="md" />
 
             <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-              Your One Stop Gadget Store. Premium mobile accessories, GaN fast chargers, true wireless earbuds, and tech lifestyle essentials across Pakistan.
+              Your trusted destination for premium mobile accessories in Pakistan. Heavy-duty fast power banks, studio-grade wireless airbuds, GaN wall chargers, and indestructible braided cables.
             </p>
 
-            {/* Social Icons (Mockup exact) */}
-            <div className="flex items-center gap-2.5 pt-2">
+            <div className="space-y-2 text-xs text-slate-300 pt-1">
+              <a
+                href={`tel:${businessPhone.replace(/\s+/g, '')}`}
+                className="flex items-center gap-2 hover:text-[#F59E0B] transition"
+              >
+                <PhoneCall className="w-3.5 h-3.5 text-[#F59E0B]" />
+                <span className="font-semibold">{businessPhone}</span>
+              </a>
+              <div className="flex items-center gap-2 text-slate-400">
+                <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                <span>Nationwide Express Cash on Delivery, Pakistan</span>
+              </div>
+            </div>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-2 pt-2">
               {/* Facebook */}
               <a
                 href={settings?.facebook || 'https://facebook.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition"
+                className="w-8 h-8 rounded-full bg-slate-900 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800"
                 aria-label="Facebook"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -55,7 +74,7 @@ export default function Footer({ settings }: { settings: Settings | null }) {
                 href={settings?.instagram || 'https://instagram.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition"
+                className="w-8 h-8 rounded-full bg-slate-900 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800"
                 aria-label="Instagram"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -68,7 +87,7 @@ export default function Footer({ settings }: { settings: Settings | null }) {
                 href="https://youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition"
+                className="w-8 h-8 rounded-full bg-slate-900 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800"
                 aria-label="YouTube"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -81,7 +100,7 @@ export default function Footer({ settings }: { settings: Settings | null }) {
                 href={settings?.tiktok || 'https://tiktok.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition text-xs font-black"
+                className="w-8 h-8 rounded-full bg-slate-900 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800 text-xs font-black"
                 aria-label="TikTok"
               >
                 ♪
@@ -89,95 +108,90 @@ export default function Footer({ settings }: { settings: Settings | null }) {
             </div>
 
             <p className="text-[11px] text-slate-500 pt-2">
-              © {new Date().getFullYear()} AS Store. All rights reserved.
+              © {new Date().getFullYear()} AS Store Pakistan. All rights reserved.
             </p>
           </div>
 
-          {/* Column 2: Quick Links (2-3 cols) */}
+          {/* Column 2: Quick Links (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-black uppercase tracking-wider text-white">
-              Quick Links
+              Categories
             </h4>
             <ul className="space-y-2 text-xs text-slate-400 font-medium">
               <li>
-                <Link href="/" className="hover:text-[#F59E0B] transition">Home</Link>
+                <Link href="/products?category=power-banks" className="hover:text-[#F59E0B] transition">Power Banks</Link>
               </li>
               <li>
-                <Link href="/products" className="hover:text-[#F59E0B] transition">Shop</Link>
+                <Link href="/products?category=wireless-earbuds" className="hover:text-[#F59E0B] transition">Airbuds & Audio</Link>
               </li>
               <li>
-                <Link href="/products?deals=true" className="hover:text-[#F59E0B] transition">Deals</Link>
+                <Link href="/products?category=chargers" className="hover:text-[#F59E0B] transition">GaN Fast Chargers</Link>
               </li>
               <li>
-                <Link href="/products?sort=newest" className="hover:text-[#F59E0B] transition">New Arrivals</Link>
+                <Link href="/products?category=usb-cables" className="hover:text-[#F59E0B] transition">Charging Cables</Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#F59E0B] transition">About Us</Link>
+                <Link href="/products?category=smart-watches" className="hover:text-[#F59E0B] transition">Smart Watches</Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#F59E0B] transition">Contact</Link>
-              </li>
-              <li>
-                <Link href="/admin/login" className="hover:text-blue-400 transition text-[11px] text-slate-600 block pt-1">
-                  Store Staff Portal
-                </Link>
+                <Link href="/products?deals=true" className="hover:text-[#F59E0B] transition text-[#F59E0B]">Flash Deals</Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Customer Service (3 cols) */}
+          {/* Column 3: Customer Service & Policies (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-black uppercase tracking-wider text-white">
-              Customer Service
+              Customer Support
             </h4>
             <ul className="space-y-2 text-xs text-slate-400 font-medium">
               <li>
-                <Link href="/contact" className="hover:text-[#F59E0B] transition">Help Center</Link>
+                <Link href="/contact" className="hover:text-[#F59E0B] transition">Help Center & FAQs</Link>
               </li>
               <li>
-                <Link href="/shipping-policy" className="hover:text-[#F59E0B] transition">Shipping Policy</Link>
+                <Link href="/shipping-policy" className="hover:text-[#F59E0B] transition">Shipping & Delivery Info</Link>
               </li>
               <li>
-                <Link href="/return-policy" className="hover:text-[#F59E0B] transition">Return & Refund Policy</Link>
+                <Link href="/return-policy" className="hover:text-[#F59E0B] transition">7-Day Replacement Policy</Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-[#F59E0B] transition">Terms & Conditions</Link>
+                <Link href="/terms" className="hover:text-[#F59E0B] transition">Terms of Service</Link>
               </li>
               <li>
                 <Link href="/privacy-policy" className="hover:text-[#F59E0B] transition">Privacy Policy</Link>
               </li>
               <li>
-                <span className="text-slate-400 text-[11px] block pt-1">
-                  Helpline: <strong className="text-[#F59E0B]">{settings?.whatsapp_number || '+92 320 1042634'}</strong>
-                </span>
+                <Link href="/admin/login" className="hover:text-blue-400 transition text-[11px] text-slate-500 block pt-1">
+                  Admin Dashboard Login →
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Newsletter Subscription (3 cols) (Mockup exact) */}
+          {/* Column 4: Newsletter Subscription (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-black uppercase tracking-wider text-white">
-              Subscribe to Our Newsletter
+              Stay in the Loop
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Get the latest updates, offers and more.
+              Subscribe for exclusive coupon codes, flash discounts, and new mobile gear launches.
             </p>
 
             <form onSubmit={handleSubscribe} className="space-y-2">
-              <div className="flex">
+              <div className="flex rounded-xl overflow-hidden border border-slate-800 focus-within:border-amber-500">
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email address"
-                  className="flex-1 px-3.5 py-2.5 text-xs rounded-l-lg bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none"
+                  placeholder="Enter email address"
+                  className="flex-1 px-3.5 py-2.5 text-xs bg-slate-900 text-white placeholder:text-slate-500 focus:outline-none"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2.5 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-bold text-xs rounded-r-lg transition whitespace-nowrap cursor-pointer"
+                  className="px-4 py-2.5 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-bold text-xs transition whitespace-nowrap cursor-pointer"
                 >
-                  Subscribe
+                  Join
                 </button>
               </div>
 
@@ -191,28 +205,29 @@ export default function Footer({ settings }: { settings: Settings | null }) {
           </div>
         </div>
 
-        {/* Bottom Payment Badges Row (Mockup exact) */}
+        {/* Bottom Payment Badges Row */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-white border border-slate-700">
+            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-white border border-slate-800">
               VISA
             </span>
-            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-white border border-slate-700">
+            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-white border border-slate-800">
               Mastercard
             </span>
-            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-[#EAB308] border border-slate-700">
+            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-[#EAB308] border border-slate-800">
               JazzCash
             </span>
-            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-emerald-400 border border-slate-700">
+            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-emerald-400 border border-slate-800">
               EasyPaisa
             </span>
-            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-blue-400 border border-slate-700">
+            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-blue-400 border border-slate-800">
               COD
             </span>
           </div>
 
           <div className="font-semibold text-slate-300 flex items-center gap-2">
-            <span>Cash on Delivery Available</span>
+            <span className="flex h-2 w-2 rounded-full bg-emerald-400" />
+            <span>Cash on Delivery Available Nationwide</span>
           </div>
         </div>
       </div>
