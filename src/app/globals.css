@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-    color-scheme: light;
+    color-scheme: dark;
   }
 
   html {
@@ -13,8 +13,8 @@
   }
 
   body {
-    background-color: #F8FAFC;
-    color: #0F172A;
+    background-color: #070D1E;
+    color: #F8FAFC;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -32,23 +32,23 @@
   }
 }
 
-/* Custom Light Scrollbar */
+/* Custom Cyber Cyan Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F1F5F9;
+  background: #0B132B;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #1E293B;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #06B6D4;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -57,16 +57,4 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* Crisp Porcelain Cards & Micro-Interactions */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-}
-
-.glow-pill {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 12px rgba(37, 99, 235, 0.15);
 }

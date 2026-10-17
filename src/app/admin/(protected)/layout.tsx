@@ -14,7 +14,6 @@ import {
   Menu,
   X,
   ShieldCheck,
-  Sparkles,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
 import AdminNotificationBell from '@/components/admin/AdminNotificationBell';
@@ -62,7 +61,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center text-slate-500 text-xs">
         <div className="flex items-center gap-3 p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
-          <div className="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+          <div className="w-5 h-5 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
           <span className="font-semibold text-slate-800">Verifying Admin Session...</span>
         </div>
       </div>
@@ -72,14 +71,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 flex flex-col md:flex-row">
       {/* Mobile Top Header */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-slate-200 shadow-2xs">
+      <div className="md:hidden flex items-center justify-between p-4 bg-[#0B132B] text-white border-b border-slate-800 shadow-2xs">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-slate-900 flex items-center justify-center font-black text-white text-xs shadow-xs">
+          <div className="w-8 h-8 rounded-xl bg-cyan-500 flex items-center justify-center font-black text-slate-950 text-xs shadow-xs">
             AS
           </div>
           <div>
-            <span className="font-display font-black text-sm text-slate-900 block leading-tight">AS Store</span>
-            <span className="text-[10px] text-amber-600 font-bold uppercase tracking-wider">Admin Panel</span>
+            <span className="font-display font-black text-sm text-white block leading-tight">AS Store</span>
+            <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">Admin Panel</span>
           </div>
         </div>
 
@@ -87,7 +86,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <AdminNotificationBell />
           <button
             onClick={() => setMobileNavOpen(!mobileNavOpen)}
-            className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800"
             aria-label="Toggle Navigation"
           >
             {mobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -95,7 +94,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
-      {/* Modern Executive Sidebar */}
+      {/* Modern Executive Sidebar with Royal Tech Highlights */}
       <aside
         className={`${
           mobileNavOpen ? 'block' : 'hidden'
@@ -104,13 +103,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="space-y-6">
           {/* Brand Logo Header */}
           <div className="flex items-center gap-3 px-2">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center font-display font-black text-white text-base shadow-sm ring-1 ring-slate-850">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#060C1B] via-[#0B132B] to-[#06B6D4] flex items-center justify-center font-display font-black text-cyan-300 text-base shadow-sm ring-1 ring-cyan-500/40">
               AS
             </div>
             <div>
               <div className="flex items-center gap-1.5">
                 <h2 className="font-display font-black text-sm tracking-tight text-slate-950">AS STORE</h2>
-                <span className="px-1.5 py-0.2 rounded-md bg-amber-100 text-[#B45309] text-[9px] font-black uppercase">PRO</span>
+                <span className="px-1.5 py-0.2 rounded-md bg-cyan-100 text-cyan-800 text-[9px] font-black uppercase">PRO</span>
               </div>
               <span className="text-[10px] text-slate-400 font-semibold block">
                 Executive Portal
@@ -133,11 +132,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   onClick={() => setMobileNavOpen(false)}
                   className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-150 ${
                     isActive
-                      ? 'bg-slate-900 text-white shadow-xs'
+                      ? 'bg-[#0B132B] text-white shadow-xs border-l-4 border-[#06B6D4]'
                       : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100/80'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#F59E0B]' : 'text-slate-500'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#06B6D4]' : 'text-slate-500'}`} />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -154,11 +153,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition border border-slate-200/70 shadow-2xs"
           >
             <div className="flex items-center gap-2">
-              <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
+              <ExternalLink className="w-3.5 h-3.5 text-cyan-600" />
               <span>Customer Store</span>
             </div>
-            <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="flex items-center gap-1 text-[10px] text-cyan-600 font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#06B6D4] animate-pulse" />
               Live
             </span>
           </Link>
@@ -166,7 +165,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Admin Profile & Sign Out */}
           <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center justify-between">
             <div className="flex items-center gap-2 min-w-0">
-              <div className="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-black shrink-0">
+              <div className="w-7 h-7 rounded-full bg-[#0B132B] text-[#06B6D4] flex items-center justify-center text-xs font-black shrink-0">
                 A
               </div>
               <div className="truncate">
@@ -204,7 +203,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               target="_blank"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
+              <ExternalLink className="w-3.5 h-3.5 text-cyan-600" />
               <span>Preview Storefront</span>
             </Link>
 
@@ -212,8 +211,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <AdminNotificationBell />
 
             {/* Verified Security Badge */}
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 text-[11px] font-bold border border-emerald-200">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-cyan-50 text-cyan-900 text-[11px] font-bold border border-cyan-200">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#06B6D4]" />
               <span>System Online</span>
             </div>
           </div>

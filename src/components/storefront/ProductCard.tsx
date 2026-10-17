@@ -53,16 +53,16 @@ export default function ProductCard({
   };
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs hover:shadow-xl hover:border-slate-300 transition-all duration-300">
+    <div className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs hover:shadow-xl hover:shadow-cyan-500/10 hover:border-cyan-500/50 transition-all duration-300">
       {/* Top Header: Badge on left + Heart on right */}
       <div className="flex items-center justify-between mb-2 z-10">
         <div>
           {discountPercent > 0 ? (
-            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-600 text-white shadow-2xs">
+            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black bg-[#06B6D4] text-slate-950 shadow-2xs">
               -{Math.round(discountPercent)}%
             </span>
           ) : product.best_seller ? (
-            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500 text-slate-950 shadow-2xs">
+            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black bg-cyan-400 text-slate-950 shadow-2xs">
               Best Seller
             </span>
           ) : product.new_arrival ? (
@@ -110,7 +110,7 @@ export default function ProductCard({
       <div className="space-y-1.5 mt-1">
         {/* Category Tag */}
         {product.category && (
-          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block line-clamp-1">
+          <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-700 block line-clamp-1">
             {product.category.name}
           </span>
         )}
@@ -118,7 +118,7 @@ export default function ProductCard({
         {/* Title */}
         <Link
           href={`/products/${product.slug}`}
-          className="block font-bold text-xs sm:text-sm text-slate-900 group-hover:text-blue-600 transition line-clamp-1"
+          className="block font-bold text-xs sm:text-sm text-slate-900 group-hover:text-cyan-600 transition line-clamp-1"
           title={product.name}
         >
           {product.name}
@@ -136,9 +136,9 @@ export default function ProductCard({
           )}
         </div>
 
-        {/* Star Rating */}
+        {/* Star Rating with Cyan Star */}
         <div className="flex items-center gap-1 text-[11px] text-slate-600 font-semibold">
-          <Star className="w-3.5 h-3.5 fill-[#F59E0B] text-[#F59E0B]" />
+          <Star className="w-3.5 h-3.5 fill-[#06B6D4] text-[#06B6D4]" />
           <span>{ratingValue.toFixed(1)}</span>
           <span className="text-slate-400 font-normal">({reviewCount})</span>
         </div>
@@ -154,7 +154,7 @@ export default function ProductCard({
               ? 'bg-slate-200 text-slate-500 cursor-not-allowed'
               : adding
               ? 'bg-emerald-600 text-white'
-              : 'bg-slate-900 hover:bg-slate-800 text-white hover:shadow-md'
+              : 'bg-[#0B132B] hover:bg-[#06B6D4] hover:text-slate-950 text-white hover:shadow-md'
           }`}
         >
           {adding ? (

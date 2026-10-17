@@ -29,9 +29,9 @@ export default function Footer({ settings }: { settings: Settings | null }) {
   };
 
   return (
-    <footer className="bg-slate-950 text-white border-t border-slate-850">
+    <footer className="bg-[#060C1B] text-white border-t border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-slate-850">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-slate-800/80">
           {/* Column 1: Brand & Contact Info (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <AsStoreLogo variant="dark" size="md" />
@@ -43,13 +43,13 @@ export default function Footer({ settings }: { settings: Settings | null }) {
             <div className="space-y-2 text-xs text-slate-300 pt-1">
               <a
                 href={`tel:${businessPhone.replace(/\s+/g, '')}`}
-                className="flex items-center gap-2 hover:text-[#F59E0B] transition"
+                className="flex items-center gap-2 hover:text-[#06B6D4] transition"
               >
-                <PhoneCall className="w-3.5 h-3.5 text-[#F59E0B]" />
-                <span className="font-semibold">{businessPhone}</span>
+                <PhoneCall className="w-3.5 h-3.5 text-[#06B6D4]" />
+                <span className="font-semibold text-white">{businessPhone}</span>
               </a>
               <div className="flex items-center gap-2 text-slate-400">
-                <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                <MapPin className="w-3.5 h-3.5 text-cyan-500" />
                 <span>Nationwide Express Cash on Delivery, Pakistan</span>
               </div>
             </div>
@@ -61,7 +61,7 @@ export default function Footer({ settings }: { settings: Settings | null }) {
                 href={settings?.facebook || 'https://facebook.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-900 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800"
+                className="w-8 h-8 rounded-full bg-[#0B152E] hover:bg-[#06B6D4] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800"
                 aria-label="Facebook"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -74,7 +74,7 @@ export default function Footer({ settings }: { settings: Settings | null }) {
                 href={settings?.instagram || 'https://instagram.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-900 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800"
+                className="w-8 h-8 rounded-full bg-[#0B152E] hover:bg-[#06B6D4] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800"
                 aria-label="Instagram"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -87,7 +87,7 @@ export default function Footer({ settings }: { settings: Settings | null }) {
                 href="https://youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-900 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800"
+                className="w-8 h-8 rounded-full bg-[#0B152E] hover:bg-[#06B6D4] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800"
                 aria-label="YouTube"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -100,7 +100,7 @@ export default function Footer({ settings }: { settings: Settings | null }) {
                 href={settings?.tiktok || 'https://tiktok.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-900 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800 text-xs font-black"
+                className="w-8 h-8 rounded-full bg-[#0B152E] hover:bg-[#06B6D4] text-slate-300 hover:text-slate-950 flex items-center justify-center transition border border-slate-800 text-xs font-black"
                 aria-label="TikTok"
               >
                 ♪
@@ -119,22 +119,22 @@ export default function Footer({ settings }: { settings: Settings | null }) {
             </h4>
             <ul className="space-y-2 text-xs text-slate-400 font-medium">
               <li>
-                <Link href="/products?category=power-banks" className="hover:text-[#F59E0B] transition">Power Banks</Link>
+                <Link href="/products?category=power-banks" className="hover:text-[#06B6D4] transition">Power Banks</Link>
               </li>
               <li>
-                <Link href="/products?category=wireless-earbuds" className="hover:text-[#F59E0B] transition">Airbuds & Audio</Link>
+                <Link href="/products?category=wireless-earbuds" className="hover:text-[#06B6D4] transition">Airbuds & Audio</Link>
               </li>
               <li>
-                <Link href="/products?category=chargers" className="hover:text-[#F59E0B] transition">GaN Fast Chargers</Link>
+                <Link href="/products?category=chargers" className="hover:text-[#06B6D4] transition">GaN Fast Chargers</Link>
               </li>
               <li>
-                <Link href="/products?category=usb-cables" className="hover:text-[#F59E0B] transition">Charging Cables</Link>
+                <Link href="/products?category=usb-cables" className="hover:text-[#06B6D4] transition">Charging Cables</Link>
               </li>
               <li>
-                <Link href="/products?category=smart-watches" className="hover:text-[#F59E0B] transition">Smart Watches</Link>
+                <Link href="/products?category=smart-watches" className="hover:text-[#06B6D4] transition">Smart Watches</Link>
               </li>
               <li>
-                <Link href="/products?deals=true" className="hover:text-[#F59E0B] transition text-[#F59E0B]">Flash Deals</Link>
+                <Link href="/products?deals=true" className="hover:text-[#06B6D4] transition text-[#06B6D4]">Flash Deals</Link>
               </li>
             </ul>
           </div>
@@ -146,22 +146,22 @@ export default function Footer({ settings }: { settings: Settings | null }) {
             </h4>
             <ul className="space-y-2 text-xs text-slate-400 font-medium">
               <li>
-                <Link href="/contact" className="hover:text-[#F59E0B] transition">Help Center & FAQs</Link>
+                <Link href="/contact" className="hover:text-[#06B6D4] transition">Help Center & FAQs</Link>
               </li>
               <li>
-                <Link href="/shipping-policy" className="hover:text-[#F59E0B] transition">Shipping & Delivery Info</Link>
+                <Link href="/shipping-policy" className="hover:text-[#06B6D4] transition">Shipping & Delivery Info</Link>
               </li>
               <li>
-                <Link href="/return-policy" className="hover:text-[#F59E0B] transition">7-Day Replacement Policy</Link>
+                <Link href="/return-policy" className="hover:text-[#06B6D4] transition">7-Day Replacement Policy</Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-[#F59E0B] transition">Terms of Service</Link>
+                <Link href="/terms" className="hover:text-[#06B6D4] transition">Terms of Service</Link>
               </li>
               <li>
-                <Link href="/privacy-policy" className="hover:text-[#F59E0B] transition">Privacy Policy</Link>
+                <Link href="/privacy-policy" className="hover:text-[#06B6D4] transition">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="/admin/login" className="hover:text-blue-400 transition text-[11px] text-slate-500 block pt-1">
+                <Link href="/admin/login" className="hover:text-[#06B6D4] transition text-[11px] text-slate-500 block pt-1">
                   Admin Dashboard Login →
                 </Link>
               </li>
@@ -178,18 +178,18 @@ export default function Footer({ settings }: { settings: Settings | null }) {
             </p>
 
             <form onSubmit={handleSubscribe} className="space-y-2">
-              <div className="flex rounded-xl overflow-hidden border border-slate-800 focus-within:border-amber-500">
+              <div className="flex rounded-xl overflow-hidden border border-slate-800 focus-within:border-cyan-500">
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter email address"
-                  className="flex-1 px-3.5 py-2.5 text-xs bg-slate-900 text-white placeholder:text-slate-500 focus:outline-none"
+                  className="flex-1 px-3.5 py-2.5 text-xs bg-[#0B152E] text-white placeholder:text-slate-500 focus:outline-none"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2.5 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-bold text-xs transition whitespace-nowrap cursor-pointer"
+                  className="px-4 py-2.5 bg-[#06B6D4] hover:bg-cyan-300 text-slate-950 font-black text-xs transition whitespace-nowrap cursor-pointer"
                 >
                   Join
                 </button>
@@ -208,25 +208,25 @@ export default function Footer({ settings }: { settings: Settings | null }) {
         {/* Bottom Payment Badges Row */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-white border border-slate-800">
+            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-white border border-slate-800">
               VISA
             </span>
-            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-white border border-slate-800">
+            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-white border border-slate-800">
               Mastercard
             </span>
-            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-[#EAB308] border border-slate-800">
+            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-[#EAB308] border border-slate-800">
               JazzCash
             </span>
-            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-emerald-400 border border-slate-800">
+            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-emerald-400 border border-slate-800">
               EasyPaisa
             </span>
-            <span className="px-2.5 py-1 rounded-md bg-slate-900 text-[11px] font-bold text-blue-400 border border-slate-800">
+            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-cyan-400 border border-slate-800">
               COD
             </span>
           </div>
 
           <div className="font-semibold text-slate-300 flex items-center gap-2">
-            <span className="flex h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="flex h-2 w-2 rounded-full bg-[#06B6D4] animate-pulse" />
             <span>Cash on Delivery Available Nationwide</span>
           </div>
         </div>

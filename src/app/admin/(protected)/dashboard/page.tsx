@@ -56,16 +56,16 @@ export default async function AdminDashboardPage() {
         <div className="flex items-center gap-2.5">
           <Link
             href="/admin/products"
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition shadow-xs"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#0B132B] hover:bg-slate-900 text-white font-bold text-xs transition shadow-xs"
           >
-            <Plus className="w-4 h-4 text-[#F59E0B]" />
+            <Plus className="w-4 h-4 text-[#06B6D4]" />
             <span>Manage Products</span>
           </Link>
           <Link
             href="/admin/orders"
             className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-bold text-xs transition shadow-2xs"
           >
-            <ShoppingBag className="w-4 h-4 text-blue-600" />
+            <ShoppingBag className="w-4 h-4 text-[#06B6D4]" />
             <span>Process Orders</span>
           </Link>
         </div>
@@ -77,7 +77,7 @@ export default async function AdminDashboardPage() {
         <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Recorded Revenue</span>
-            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+            <div className="w-9 h-9 rounded-xl bg-cyan-50 text-cyan-700 flex items-center justify-center font-bold">
               <TrendingUp className="w-4 h-4" />
             </div>
           </div>
@@ -98,7 +98,7 @@ export default async function AdminDashboardPage() {
           <div className="font-display text-2xl font-black text-amber-600">
             {pendingOrders}
           </div>
-          <Link href="/admin/orders" className="text-[11px] font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+          <Link href="/admin/orders" className="text-[11px] font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1">
             <span>Verify & dispatch orders</span>
             <ArrowRight className="w-3 h-3" />
           </Link>
@@ -115,7 +115,7 @@ export default async function AdminDashboardPage() {
           <div className="font-display text-2xl font-black text-slate-900">
             {activeProducts} / {totalProducts}
           </div>
-          <Link href="/admin/products" className="text-[11px] font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+          <Link href="/admin/products" className="text-[11px] font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1">
             <span>Update pricing & stock</span>
             <ArrowRight className="w-3 h-3" />
           </Link>
@@ -132,7 +132,7 @@ export default async function AdminDashboardPage() {
           <div className="font-display text-2xl font-black text-slate-900">
             {totalCoupons} Active
           </div>
-          <Link href="/admin/coupons" className="text-[11px] font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+          <Link href="/admin/coupons" className="text-[11px] font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1">
             <span>Manage discount vouchers</span>
             <ArrowRight className="w-3 h-3" />
           </Link>
@@ -150,7 +150,7 @@ export default async function AdminDashboardPage() {
           </div>
           <Link
             href="/admin/orders"
-            className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 transition"
+            className="flex items-center gap-1 text-xs font-bold text-cyan-600 hover:text-cyan-700 transition"
           >
             <span>View All Orders ({totalOrders})</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -199,7 +199,7 @@ export default async function AdminDashboardPage() {
                               : ord.status === 'rejected'
                               ? 'bg-rose-100 text-rose-800'
                               : ord.status === 'shipped'
-                              ? 'bg-blue-100 text-blue-800'
+                              ? 'bg-cyan-100 text-cyan-800'
                               : ord.status === 'delivered'
                               ? 'bg-teal-100 text-teal-800'
                               : 'bg-amber-100 text-amber-800'
@@ -212,9 +212,9 @@ export default async function AdminDashboardPage() {
                         <Link
                           href={`/admin/orders/${ord.id}/slip`}
                           target="_blank"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] transition shadow-xs"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0B132B] hover:bg-slate-900 text-white font-bold text-[11px] transition shadow-xs"
                         >
-                          <Printer className="w-3.5 h-3.5" />
+                          <Printer className="w-3.5 h-3.5 text-[#06B6D4]" />
                           <span>Print Slip</span>
                         </Link>
                       </td>

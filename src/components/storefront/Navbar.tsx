@@ -26,7 +26,7 @@ export default function Navbar({
 }: {
   categories: Category[];
   settings: Settings | null;
-  }) {
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const { totalItems, openCart } = useCart();
@@ -60,12 +60,12 @@ export default function Navbar({
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
+    <header className="sticky top-0 z-40 bg-[#0B132B] text-white shadow-lg transition-all border-b border-cyan-950/60">
       {/* Top Notification / Hotline Strip */}
-      <div className="bg-slate-950 text-slate-300 text-[11px] py-1.5 px-4 sm:px-6 border-b border-slate-800">
+      <div className="bg-[#060C1B] text-slate-300 text-[11px] py-1.5 px-4 sm:px-6 border-b border-slate-800/80">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="flex h-1.5 w-1.5 rounded-full bg-[#06B6D4] animate-pulse" />
             <span>
               ⚡ <strong className="text-white">Free Express Delivery</strong> on orders over Rs. {freeThreshold.toLocaleString()}
             </span>
@@ -74,9 +74,9 @@ export default function Navbar({
           <div className="hidden sm:flex items-center gap-4 text-slate-400">
             <a
               href={`tel:${businessPhone.replace(/\s+/g, '')}`}
-              className="flex items-center gap-1.5 hover:text-[#F59E0B] transition"
+              className="flex items-center gap-1.5 hover:text-[#06B6D4] transition"
             >
-              <PhoneCall className="w-3 h-3 text-[#F59E0B]" />
+              <PhoneCall className="w-3 h-3 text-[#06B6D4]" />
               <span className="font-semibold text-slate-200">{businessPhone}</span>
             </a>
             <span className="text-slate-700">|</span>
@@ -91,15 +91,15 @@ export default function Navbar({
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition"
+            className="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition"
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          {/* Brand Logo in Light Mode */}
+          {/* Brand Logo in Royal Tech Theme */}
           <div className="shrink-0">
-            <AsStoreLogo variant="light" size="md" />
+            <AsStoreLogo variant="dark" size="md" />
           </div>
 
           {/* Modern Capsule Search Bar */}
@@ -110,11 +110,11 @@ export default function Navbar({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search power banks, airbuds, fast chargers, cables..."
-                className="w-full pl-5 pr-12 py-2.5 rounded-full bg-slate-100/80 hover:bg-slate-100 focus:bg-white text-slate-900 placeholder:text-slate-400 text-xs sm:text-sm font-medium border border-slate-200/90 focus:border-[#F59E0B] focus:ring-3 focus:ring-amber-500/15 focus:outline-none transition shadow-inner"
+                className="w-full pl-5 pr-12 py-2.5 rounded-full bg-white text-slate-900 placeholder:text-slate-400 text-xs sm:text-sm font-medium border border-transparent focus:border-[#06B6D4] focus:ring-3 focus:ring-cyan-500/25 focus:outline-none transition shadow-sm"
               />
               <button
                 type="submit"
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 transition p-1"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#06B6D4] transition p-1"
                 aria-label="Search"
               >
                 <Search className="w-4 h-4" />
@@ -127,32 +127,32 @@ export default function Navbar({
             {/* Account */}
             <Link
               href={user ? '/account' : '/admin/login'}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-slate-700 hover:text-slate-950 hover:bg-slate-100 text-xs font-semibold transition"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-slate-300 hover:text-white hover:bg-slate-800/80 text-xs font-semibold transition"
               title={user ? 'Customer Account' : 'Admin Portal'}
             >
-              <User className="w-4 h-4 text-slate-600" />
+              <User className="w-4 h-4 text-[#06B6D4]" />
               <span>Account</span>
             </Link>
 
             {/* Wishlist */}
             <Link
               href="/products?deals=true"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-slate-700 hover:text-rose-600 hover:bg-rose-50 text-xs font-semibold transition"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-slate-300 hover:text-white hover:bg-slate-800/80 text-xs font-semibold transition"
               title="Saved Items"
             >
-              <Heart className="w-4 h-4 text-slate-600 hover:text-rose-600" />
+              <Heart className="w-4 h-4 text-cyan-400" />
               <span>Wishlist</span>
             </Link>
 
-            {/* Modern Cart Button */}
+            {/* Cyber Cyan Cart Button */}
             <button
               onClick={openCart}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs hover:shadow-md active:scale-95 cursor-pointer group"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black transition-all shadow-md shadow-cyan-500/20 active:scale-95 cursor-pointer group"
               aria-label="View Shopping Cart"
             >
               <div className="relative">
-                <ShoppingBag className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
-                <span className="absolute -top-1.5 -right-2 flex items-center justify-center min-w-[15px] h-[15px] px-0.5 rounded-full bg-[#F59E0B] text-slate-950 text-[9px] font-black leading-none shadow-xs">
+                <ShoppingBag className="w-4 h-4 text-slate-950 group-hover:scale-110 transition-transform" />
+                <span className="absolute -top-1.5 -right-2 flex items-center justify-center min-w-[15px] h-[15px] px-0.5 rounded-full bg-slate-950 text-cyan-300 text-[9px] font-black leading-none shadow-xs">
                   {totalItems}
                 </span>
               </div>
@@ -169,11 +169,11 @@ export default function Navbar({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search power banks, airbuds, chargers..."
-              className="w-full pl-4 pr-10 py-2 rounded-full bg-slate-100 text-slate-900 placeholder:text-slate-400 text-xs font-medium border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#F59E0B]"
+              className="w-full pl-4 pr-10 py-2 rounded-full bg-white text-slate-900 placeholder:text-slate-400 text-xs font-medium border border-transparent focus:outline-none focus:ring-2 focus:ring-[#06B6D4]"
             />
             <button
               type="submit"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#F59E0B]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#06B6D4]"
             >
               <Search className="w-3.5 h-3.5" />
             </button>
@@ -182,19 +182,19 @@ export default function Navbar({
       </div>
 
       {/* Sub Tier: Categories & Secondary Navigation */}
-      <div className="border-t border-slate-100 bg-slate-50/70">
+      <div className="border-t border-slate-800 bg-[#070D1E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-11 text-xs">
             {/* Left: All Categories Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setCategoriesDropdown(!categoriesDropdown)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-800 hover:text-slate-950 hover:bg-slate-200/60 font-bold transition"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800 font-bold transition"
               >
-                <Menu className="w-3.5 h-3.5 text-[#F59E0B]" />
+                <Menu className="w-3.5 h-3.5 text-[#06B6D4]" />
                 <span>All Categories</span>
                 <ChevronDown
-                  className={`w-3 h-3 text-slate-500 transition-transform duration-200 ${
+                  className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${
                     categoriesDropdown ? 'rotate-180' : ''
                   }`}
                 />
@@ -211,7 +211,7 @@ export default function Navbar({
                       key={cat.id}
                       href={`/products?category=${cat.slug}`}
                       onClick={() => setCategoriesDropdown(false)}
-                      className="block px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#F59E0B] transition"
+                      className="block px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-cyan-50 hover:text-cyan-700 transition"
                     >
                       {cat.name}
                     </Link>
@@ -220,7 +220,7 @@ export default function Navbar({
                     <Link
                       href="/products"
                       onClick={() => setCategoriesDropdown(false)}
-                      className="block px-4 py-2 text-xs font-bold text-blue-600 hover:bg-slate-50 transition"
+                      className="block px-4 py-2 text-xs font-bold text-cyan-600 hover:bg-cyan-50 transition"
                     >
                       Browse Entire Catalogue →
                     </Link>
@@ -229,14 +229,14 @@ export default function Navbar({
               )}
             </div>
 
-            {/* Center Navigation Links */}
+            {/* Center Navigation Links with Cyber Cyan active indicators */}
             <nav className="hidden lg:flex items-center gap-7 font-semibold">
               <Link
                 href="/"
                 className={`py-3 border-b-2 transition ${
                   pathname === '/'
-                    ? 'border-[#F59E0B] text-slate-950 font-bold'
-                    : 'border-transparent text-slate-600 hover:text-slate-900'
+                    ? 'border-[#06B6D4] text-[#06B6D4] font-bold'
+                    : 'border-transparent text-slate-300 hover:text-white'
                 }`}
               >
                 Home
@@ -245,22 +245,22 @@ export default function Navbar({
                 href="/products"
                 className={`py-3 border-b-2 transition ${
                   pathname === '/products'
-                    ? 'border-[#F59E0B] text-slate-950 font-bold'
-                    : 'border-transparent text-slate-600 hover:text-slate-900'
+                    ? 'border-[#06B6D4] text-[#06B6D4] font-bold'
+                    : 'border-transparent text-slate-300 hover:text-white'
                 }`}
               >
                 Shop All
               </Link>
               <Link
                 href="/products?deals=true"
-                className="py-3 border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition flex items-center gap-1"
+                className="py-3 border-b-2 border-transparent text-slate-300 hover:text-white transition flex items-center gap-1"
               >
-                <Zap className="w-3 h-3 text-[#F59E0B]" />
+                <Zap className="w-3 h-3 text-[#06B6D4]" />
                 <span>Hot Deals</span>
               </Link>
               <Link
                 href="/products?sort=newest"
-                className="py-3 border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition"
+                className="py-3 border-b-2 border-transparent text-slate-300 hover:text-white transition"
               >
                 New Arrivals
               </Link>
@@ -268,8 +268,8 @@ export default function Navbar({
                 href="/about"
                 className={`py-3 border-b-2 transition ${
                   pathname === '/about'
-                    ? 'border-[#F59E0B] text-slate-950 font-bold'
-                    : 'border-transparent text-slate-600 hover:text-slate-900'
+                    ? 'border-[#06B6D4] text-[#06B6D4] font-bold'
+                    : 'border-transparent text-slate-300 hover:text-white'
                 }`}
               >
                 About Us
@@ -278,8 +278,8 @@ export default function Navbar({
                 href="/contact"
                 className={`py-3 border-b-2 transition ${
                   pathname === '/contact'
-                    ? 'border-[#F59E0B] text-slate-950 font-bold'
-                    : 'border-transparent text-slate-600 hover:text-slate-900'
+                    ? 'border-[#06B6D4] text-[#06B6D4] font-bold'
+                    : 'border-transparent text-slate-300 hover:text-white'
                 }`}
               >
                 Contact & Support
@@ -287,12 +287,12 @@ export default function Navbar({
             </nav>
 
             {/* Right: Free Delivery Pill */}
-            <div className="flex items-center gap-2 text-slate-700">
-              <div className="w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center text-[#F59E0B] shrink-0">
+            <div className="flex items-center gap-2 text-slate-300">
+              <div className="w-5 h-5 rounded-full bg-cyan-950/80 border border-cyan-800 flex items-center justify-center text-[#06B6D4] shrink-0">
                 <Truck className="w-3 h-3" />
               </div>
               <span className="text-[11px] font-semibold">
-                Free Delivery above <strong className="text-slate-950">Rs. {freeThreshold.toLocaleString()}</strong>
+                Free Delivery above <strong className="text-white">Rs. {freeThreshold.toLocaleString()}</strong>
               </span>
             </div>
           </div>
@@ -301,13 +301,13 @@ export default function Navbar({
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[110px] z-50 bg-black/40 backdrop-blur-xs animate-fade-in">
-          <div className="w-4/5 max-w-sm h-full p-6 overflow-y-auto bg-white text-slate-900 border-r border-slate-200 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <span className="font-bold text-sm text-slate-900">Navigation Menu</span>
+        <div className="lg:hidden fixed inset-0 top-[110px] z-50 bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div className="w-4/5 max-w-sm h-full p-6 overflow-y-auto bg-[#0B132B] text-white border-r border-slate-800 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <span className="font-bold text-sm text-[#06B6D4]">Navigation Menu</span>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700"
+                className="p-1 rounded-lg text-slate-400 hover:text-white"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -317,48 +317,48 @@ export default function Navbar({
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+                className="block py-2 text-slate-300 hover:text-[#06B6D4]"
               >
                 Home
               </Link>
               <Link
                 href="/products"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+                className="block py-2 text-slate-300 hover:text-[#06B6D4]"
               >
                 Shop All
               </Link>
               <Link
                 href="/products?deals=true"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+                className="block py-2 text-slate-300 hover:text-[#06B6D4]"
               >
                 Hot Deals
               </Link>
               <Link
                 href="/products?sort=newest"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+                className="block py-2 text-slate-300 hover:text-[#06B6D4]"
               >
                 New Arrivals
               </Link>
               <Link
                 href="/about"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+                className="block py-2 text-slate-300 hover:text-[#06B6D4]"
               >
                 About Us
               </Link>
               <Link
                 href="/contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-slate-700 hover:text-[#F59E0B]"
+                className="block py-2 text-slate-300 hover:text-[#06B6D4]"
               >
                 Contact
               </Link>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 space-y-2">
+            <div className="pt-4 border-t border-slate-800 space-y-2">
               <span className="text-[11px] uppercase tracking-wider text-slate-400 font-bold block">
                 Top Categories
               </span>
@@ -367,18 +367,18 @@ export default function Navbar({
                   key={cat.id}
                   href={`/products?category=${cat.slug}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-xs text-slate-600 hover:text-slate-950 py-1"
+                  className="block text-xs text-slate-300 hover:text-[#06B6D4] py-1"
                 >
                   {cat.name}
                 </Link>
               ))}
             </div>
 
-            <div className="pt-4 border-t border-slate-100 space-y-2">
+            <div className="pt-4 border-t border-slate-800 space-y-2">
               <Link
                 href="/admin/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-xs font-bold text-blue-600 hover:text-blue-700 py-1"
+                className="block text-xs font-bold text-[#06B6D4] hover:text-cyan-300 py-1"
               >
                 Store Admin Portal →
               </Link>
