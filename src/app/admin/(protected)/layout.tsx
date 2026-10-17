@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
@@ -72,15 +73,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 flex flex-col md:flex-row">
       {/* Mobile Top Header */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[#0B132B] text-white border-b border-slate-800 shadow-2xs">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-cyan-500 flex items-center justify-center font-black text-slate-950 text-xs shadow-xs">
-            AS
+        <Link href="/admin/dashboard" className="flex items-center gap-2.5">
+          <div className="relative h-9 w-12 flex items-center justify-center">
+            <Image
+              src="/images/as-store-logo.png"
+              alt="AS Store"
+              width={667}
+              height={499}
+              className="h-full w-auto object-contain"
+            />
           </div>
           <div>
             <span className="font-display font-black text-sm text-white block leading-tight">AS Store</span>
             <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">Admin Panel</span>
           </div>
-        </div>
+        </Link>
 
         <div className="flex items-center gap-2">
           <AdminNotificationBell />
@@ -102,9 +109,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       >
         <div className="space-y-6">
           {/* Brand Logo Header */}
-          <div className="flex items-center gap-3 px-2">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#060C1B] via-[#0B132B] to-[#06B6D4] flex items-center justify-center font-display font-black text-cyan-300 text-base shadow-sm ring-1 ring-cyan-500/40">
-              AS
+          <Link href="/admin/dashboard" className="flex items-center gap-3 px-1 group">
+            <div className="relative h-11 w-14 p-1 rounded-xl bg-[#060C1B] border border-cyan-900/40 flex items-center justify-center shadow-xs">
+              <Image
+                src="/images/as-store-logo.png"
+                alt="AS Store"
+                width={667}
+                height={499}
+                className="h-full w-auto object-contain group-hover:scale-105 transition-transform"
+              />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
@@ -115,7 +128,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 Executive Portal
               </span>
             </div>
-          </div>
+          </Link>
 
           {/* Navigation Links */}
           <nav className="space-y-1">

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Printer, ArrowLeft, ShieldCheck, PhoneCall, CheckSquare } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 import type { Order, Settings } from '@/types/database';
@@ -51,8 +52,14 @@ export default function PackingSlipClient({
         {/* Header with Logo and Barcode */}
         <div className="flex items-center justify-between border-b-2 border-slate-900 pb-5">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center font-display font-black text-xl print:border print:border-black">
-              AS
+            <div className="relative h-12 w-16 flex items-center justify-center p-1 rounded-xl bg-black print:border print:border-black shrink-0">
+              <Image
+                src="/images/as-store-logo.png"
+                alt="AS Store Logo"
+                width={667}
+                height={499}
+                className="h-full w-auto object-contain"
+              />
             </div>
             <div>
               <h1 className="font-display font-black text-2xl tracking-tight text-slate-900 print:text-black leading-none">
