@@ -75,7 +75,6 @@ export interface Product {
   sort_order?: number | null;
   sku?: string | null;
   purchase_price?: number;
-  wholesale_price?: number | null;
   profit_amount?: number;
   profit_margin?: number;
   stock_status: StockStatus;
