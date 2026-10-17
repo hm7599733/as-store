@@ -26,19 +26,19 @@ export default function Hero({
           <div className="absolute bottom-0 right-10 w-72 h-72 bg-[#F59E0B]/10 blur-3xl rounded-full pointer-events-none" />
 
           <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
-            {/* Left Content (5-6 cols) */}
+            {/* Left Content (6 cols) */}
             <div className="lg:col-span-6 space-y-4 sm:space-y-6 z-10">
               <span className="inline-block text-[#F59E0B] font-extrabold text-xs sm:text-sm tracking-widest uppercase">
-                LATEST GADGETS, BEST PRICES
+                MOBILE ACCESSORIES • POWER BANKS • AIRBUDS
               </span>
 
               <h1 className="font-display text-3xl sm:text-5xl lg:text-[3.25rem] font-black text-white leading-[1.1] tracking-tight">
-                Upgrade Your Life <br />
-                with <span className="text-[#F59E0B]">AS Store</span>
+                Power Banks, Airbuds <br />
+                & Mobile <span className="text-[#F59E0B]">Accessories</span>
               </h1>
 
               <p className="text-slate-300 text-sm sm:text-base font-normal max-w-md leading-relaxed">
-                Premium gadgets, accessories and more — all in one place.
+                High-capacity power banks, crystal-clear wireless airbuds, GaN fast chargers, and durable cables with nationwide cash on delivery.
               </p>
 
               {/* CTA Button */}
@@ -53,12 +53,12 @@ export default function Hero({
                   }}
                   className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-black text-sm transition-all shadow-lg shadow-amber-500/20 active:scale-95 group cursor-pointer"
                 >
-                  <span>Shop Now</span>
+                  <span>Shop Accessories</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </a>
               </div>
 
-              {/* Slider Dots (Mockup exact) */}
+              {/* Slider Dots */}
               <div className="flex items-center gap-2 pt-2">
                 <span className="w-6 h-2 rounded-full bg-[#F59E0B]" />
                 <span className="w-2 h-2 rounded-full bg-slate-600" />
@@ -66,13 +66,12 @@ export default function Hero({
               </div>
             </div>
 
-            {/* Center Product Composition Showcase (Mockup photography) */}
+            {/* Center Product Composition Showcase (Airbuds + Power Bank) */}
             <div className="lg:col-span-3 flex items-center justify-center relative min-h-[220px] sm:min-h-[280px]">
-              {/* Product composite graphic */}
               <div className="relative w-full aspect-square max-w-[280px] sm:max-w-[340px]">
                 <Image
-                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&auto=format&fit=crop&q=80"
-                  alt="Premium Tech Gadgets"
+                  src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&auto=format&fit=crop&q=80"
+                  alt="Premium Airbuds & Mobile Accessories"
                   fill
                   sizes="(max-width: 768px) 280px, 340px"
                   className="object-contain drop-shadow-2xl rounded-2xl"

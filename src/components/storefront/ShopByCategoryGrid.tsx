@@ -3,13 +3,13 @@
 import React from 'react';
 import Image from 'next/image';
 import {
-  Smartphone,
-  Laptop,
-  Watch,
+  BatteryCharging,
   Headphones,
   Zap,
-  Gamepad2,
-  Tv,
+  Cable,
+  Watch,
+  Speaker,
+  Shield,
   LayoutGrid,
 } from 'lucide-react';
 import type { Category } from '@/types/database';
@@ -31,62 +31,62 @@ export default function ShopByCategoryGrid({
   selectedCategory?: string;
   onSelectCategory?: (slug: string) => void;
 }) {
-  // Mockup category definitions matching the 8 items in the uploaded image
+  // Mobile accessories categories matching user requirements: power bank, airbuds, chargers, cables
   const displayCategories: CategoryItem[] = [
     {
-      id: 'phones',
-      name: 'Mobile Phones',
-      slug: 'mobile-phones',
-      icon: <Smartphone className="w-8 h-8 text-blue-600" />,
-      imageUrl: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=160&auto=format&fit=crop&q=80',
+      id: 'power-banks',
+      name: 'Power Banks',
+      slug: 'power-banks',
+      icon: <BatteryCharging className="w-8 h-8 text-amber-500" />,
+      imageUrl: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=160&auto=format&fit=crop&q=80',
     },
     {
-      id: 'laptops',
-      name: 'Laptops',
-      slug: 'laptops',
-      icon: <Laptop className="w-8 h-8 text-slate-700" />,
-      imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=160&auto=format&fit=crop&q=80',
+      id: 'airbuds',
+      name: 'Airbuds & Audio',
+      slug: 'wireless-earbuds',
+      icon: <Headphones className="w-8 h-8 text-blue-600" />,
+      imageUrl: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=160&auto=format&fit=crop&q=80',
     },
     {
-      id: 'watches',
+      id: 'fast-chargers',
+      name: 'Fast Chargers',
+      slug: 'chargers',
+      icon: <Zap className="w-8 h-8 text-emerald-600" />,
+      imageUrl: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=160&auto=format&fit=crop&q=80',
+    },
+    {
+      id: 'cables',
+      name: 'Charging Cables',
+      slug: 'usb-cables',
+      icon: <Cable className="w-8 h-8 text-purple-600" />,
+      imageUrl: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=160&auto=format&fit=crop&q=80',
+    },
+    {
+      id: 'smart-watches',
       name: 'Smart Watches',
       slug: 'smart-watches',
       icon: <Watch className="w-8 h-8 text-slate-800" />,
       imageUrl: 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=160&auto=format&fit=crop&q=80',
     },
     {
-      id: 'earbuds',
-      name: 'Earbuds & Headphones',
-      slug: 'earbuds',
-      icon: <Headphones className="w-8 h-8 text-slate-900" />,
-      imageUrl: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=160&auto=format&fit=crop&q=80',
+      id: 'speakers',
+      name: 'Speakers',
+      slug: 'bluetooth-speakers',
+      icon: <Speaker className="w-8 h-8 text-indigo-600" />,
+      imageUrl: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=160&auto=format&fit=crop&q=80',
     },
     {
-      id: 'accessories',
-      name: 'Accessories',
-      slug: 'chargers',
-      icon: <Zap className="w-8 h-8 text-amber-500" />,
-      imageUrl: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=160&auto=format&fit=crop&q=80',
+      id: 'mobile-covers',
+      name: 'Mobile Covers',
+      slug: 'mobile-covers',
+      icon: <Shield className="w-8 h-8 text-rose-600" />,
+      imageUrl: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=160&auto=format&fit=crop&q=80',
     },
     {
-      id: 'gaming',
-      name: 'Gaming',
-      slug: 'gaming',
-      icon: <Gamepad2 className="w-8 h-8 text-indigo-600" />,
-      imageUrl: 'https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?w=160&auto=format&fit=crop&q=80',
-    },
-    {
-      id: 'appliances',
-      name: 'Home Appliances',
-      slug: 'home-appliances',
-      icon: <Tv className="w-8 h-8 text-slate-600" />,
-      imageUrl: 'https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=160&auto=format&fit=crop&q=80',
-    },
-    {
-      id: 'more',
-      name: 'More',
+      id: 'all',
+      name: 'All Accessories',
       slug: 'all',
-      icon: <LayoutGrid className="w-8 h-8 text-slate-700" />,
+      icon: <LayoutGrid className="w-8 h-8 text-slate-800" />,
     },
   ];
 
