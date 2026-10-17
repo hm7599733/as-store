@@ -11,6 +11,7 @@ const checkoutSchema = z.object({
   city: z.string().min(2, 'City is required').max(100),
   address: z.string().min(5, 'Detailed delivery address is required').max(300),
   coupon_code: z.string().nullable().optional(),
+  customer_id: z.string().nullable().optional(),
   payment_method: z.enum(['cod', 'online']).default('cod'),
   items: z
     .array(
@@ -51,7 +52,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { customer_name, phone, city, address, coupon_code, payment_method, items } = parsed.data;
+    const { customer_name, phone, city, address, coupon_code, customer_id, payment_method, items } = parsed.data;
     const cleanDigits = cleanPakistaniPhoneDigits(phone);
     const normalizedPhone = `0${cleanDigits}`;
 
@@ -196,6 +197,7 @@ export async function POST(request: Request) {
     const { data: order, error: orderErr } = await supabase
       .from('orders')
       .insert({
+        customer_id: customer_id || null,
         customer_name,
         phone: normalizedPhone,
         city,

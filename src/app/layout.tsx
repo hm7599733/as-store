@@ -3,6 +3,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { ToastProvider } from '@/context/ToastContext';
 import { CartProvider } from '@/context/CartContext';
+import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.asstore.pk'),
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0A0F1D',
+  themeColor: '#070B14',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -55,10 +56,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#0A0F1D] text-slate-100 transition-colors duration-200">
+      <body className="bg-[#070B14] text-slate-100 transition-colors duration-200">
         <ThemeProvider>
           <ToastProvider>
-            <CartProvider>{children}</CartProvider>
+            <AuthProvider>
+              <CartProvider>{children}</CartProvider>
+            </AuthProvider>
           </ToastProvider>
         </ThemeProvider>
       </body>

@@ -14,8 +14,10 @@ import {
   Sparkles,
   Zap,
   PhoneCall,
+  User as UserIcon,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/components/theme/ThemeProvider';
 import type { Category, Settings } from '@/types/database';
 
@@ -28,6 +30,7 @@ export default function Navbar({
 }) {
   const router = useRouter();
   const { totalItems, openCart } = useCart();
+  const { user, profile } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const isLight = theme === 'light';
 
@@ -63,8 +66,8 @@ export default function Navbar({
       ? 'bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-subtle'
       : 'bg-white border-b border-slate-200/50'
     : isScrolled
-    ? 'bg-[#0A0F1D]/90 backdrop-blur-md border-b border-slate-800/80 shadow-lg'
-    : 'bg-[#0A0F1D] border-b border-slate-800/50';
+    ? 'bg-[#070B14]/90 backdrop-blur-md border-b border-slate-800/80 shadow-lg'
+    : 'bg-[#070B14] border-b border-slate-800/50';
 
   return (
     <header className={`sticky top-0 z-40 transition-colors duration-200 ${navBg}`}>
@@ -84,7 +87,7 @@ export default function Navbar({
           {/* AS Store Brand Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0 group">
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-400 p-[1.5px] shadow-glow">
-              <div className="w-full h-full bg-[#0A0F1D] rounded-[10px] flex items-center justify-center font-display font-black text-white text-base tracking-tighter group-hover:scale-105 transition-transform duration-200">
+              <div className="w-full h-full bg-[#070B14] rounded-[10px] flex items-center justify-center font-display font-black text-white text-base tracking-tighter group-hover:scale-105 transition-transform duration-200">
                 AS
               </div>
             </div>
@@ -172,6 +175,39 @@ export default function Navbar({
               {isLight ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </button>
 
+            {/* Customer Account / Sign In */}
+            {user ? (
+              <Link
+                href="/account"
+                className={`flex items-center gap-2 py-1.5 px-2.5 sm:px-3 rounded-xl border text-xs font-semibold transition ${
+                  isLight
+                    ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800'
+                    : 'bg-slate-850 hover:bg-slate-800 border-slate-700 text-white'
+                }`}
+                title="My Account & Orders"
+              >
+                <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-[11px] font-bold shrink-0">
+                  {profile?.full_name?.charAt(0).toUpperCase() || 'U'}
+                </div>
+                <span className="hidden lg:inline max-w-[80px] truncate">
+                  {profile?.full_name?.split(' ')[0] || 'Account'}
+                </span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className={`flex items-center gap-1.5 py-1.5 px-2.5 sm:px-3 rounded-xl border text-xs font-semibold transition ${
+                  isLight
+                    ? 'border-slate-300 text-slate-700 hover:bg-slate-100'
+                    : 'border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white'
+                }`}
+                title="Customer Sign In"
+              >
+                <UserIcon className="w-4 h-4 text-blue-500" />
+                <span className="hidden sm:inline">Sign In</span>
+              </Link>
+            )}
+
             {/* Shopping Cart Trigger */}
             <button
               onClick={openCart}
@@ -243,6 +279,34 @@ export default function Navbar({
               >
                 All Products
               </Link>
+
+              {/* Customer Account Mobile */}
+              <div className="py-2 border-y border-slate-800/40">
+                {user ? (
+                  <Link
+                    href="/account"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-3 p-2.5 rounded-xl bg-blue-600/10 border border-blue-500/20 text-xs font-semibold"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                      {profile?.full_name?.charAt(0).toUpperCase() || 'U'}
+                    </div>
+                    <div>
+                      <span className="block font-bold text-blue-400">{profile?.full_name || 'My Account'}</span>
+                      <span className="block text-[10px] text-slate-400">View orders & profile</span>
+                    </div>
+                  </Link>
+                ) : (
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-blue-600 text-white text-xs font-semibold"
+                  >
+                    <UserIcon className="w-4 h-4" />
+                    <span>Customer Sign In / Register</span>
+                  </Link>
+                )}
+              </div>
 
               <div className="pt-2">
                 <span className="text-xs uppercase tracking-wider text-slate-500 font-bold block mb-2">

@@ -70,7 +70,7 @@ export default function CartDrawer() {
       {/* Drawer Panel */}
       <div
         className={`relative z-10 flex flex-col w-full max-w-md h-full shadow-2xl transition-all duration-300 animate-slide-in-right ${
-          isLight ? 'bg-white text-slate-900' : 'bg-[#0A0F1D] text-white border-l border-slate-800'
+          isLight ? 'bg-white text-slate-900' : 'bg-[#070B14] text-white border-l border-slate-800'
         }`}
         style={{ overscrollBehavior: 'contain' }}
       >

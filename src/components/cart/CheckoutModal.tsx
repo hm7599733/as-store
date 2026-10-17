@@ -15,6 +15,7 @@ import {
   Banknote,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/components/theme/ThemeProvider';
 import { formatPrice, cleanPakistaniPhoneDigits } from '@/lib/utils';
 
@@ -32,6 +33,7 @@ export default function CheckoutModal() {
     clearCart,
   } = useCart();
 
+  const { user, profile } = useAuth();
   const { theme } = useTheme();
   const isLight = theme === 'light';
 
@@ -47,6 +49,16 @@ export default function CheckoutModal() {
     orderNumber: string;
     whatsappUrl: string;
   } | null>(null);
+
+  // Auto-fill logged-in customer details
+  React.useEffect(() => {
+    if (profile) {
+      if (profile.full_name && !customerName) setCustomerName(profile.full_name);
+      if (profile.phone && !phone) setPhone(profile.phone);
+      if (profile.city && !city) setCity(profile.city);
+      if (profile.address && !address) setAddress(profile.address);
+    }
+  }, [profile, isCheckoutOpen]);
 
   if (!isCheckoutOpen) return null;
 
@@ -87,6 +99,7 @@ export default function CheckoutModal() {
           city: city.trim(),
           address: address.trim(),
           coupon_code: couponCode || null,
+          customer_id: user?.id || null,
           payment_method: paymentMethod,
           items: items.map((i) => ({
             product_id: i.productId,
