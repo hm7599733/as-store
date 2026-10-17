@@ -393,20 +393,20 @@ export default function ProductDetailClient({
           </div>
 
           {/* Guarantee Badges */}
-          <div className="grid grid-cols-3 gap-3 pt-4 border-t border-slate-800/60 text-center">
-            <div className="p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-              <Truck className="w-4 h-4 text-blue-400 mx-auto mb-1" />
-              <span className="text-[10px] font-semibold block text-slate-300">Fast Shipping</span>
+          <div className="grid grid-cols-3 gap-3 pt-4 border-t border-slate-200 text-center">
+            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <Truck className="w-4 h-4 text-blue-600 mx-auto mb-1" />
+              <span className="text-[10px] font-bold block text-slate-800">Fast Shipping</span>
               <span className="text-[9px] text-slate-500">2-4 working days</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-              <RotateCcw className="w-4 h-4 text-emerald-400 mx-auto mb-1" />
-              <span className="text-[10px] font-semibold block text-slate-300">7-Day Warranty</span>
+            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <RotateCcw className="w-4 h-4 text-emerald-600 mx-auto mb-1" />
+              <span className="text-[10px] font-bold block text-slate-800">7-Day Warranty</span>
               <span className="text-[9px] text-slate-500">Hassle-free return</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-              <PackageCheck className="w-4 h-4 text-amber-400 mx-auto mb-1" />
-              <span className="text-[10px] font-semibold block text-slate-300">100% Genuine</span>
+            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <PackageCheck className="w-4 h-4 text-amber-600 mx-auto mb-1" />
+              <span className="text-[10px] font-bold block text-slate-800">100% Genuine</span>
               <span className="text-[9px] text-slate-500">Quality inspected</span>
             </div>
           </div>
@@ -418,32 +418,26 @@ export default function ProductDetailClient({
         {/* Description & Specifications Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Detailed Description */}
-          <div className={`p-6 sm:p-8 rounded-3xl border ${
-            isLight ? 'bg-white border-slate-200' : 'bg-[#0E1526] border-slate-800'
-          }`}>
-            <h3 className={`font-display text-lg font-bold mb-4 ${isLight ? 'text-slate-900' : 'text-white'}`}>
+          <div className="p-6 sm:p-8 rounded-3xl border bg-white border-slate-200 shadow-sm">
+            <h3 className="font-display text-lg font-bold mb-4 text-slate-900">
               Product Overview
             </h3>
-            <div className={`text-xs sm:text-sm leading-relaxed space-y-3 whitespace-pre-line ${
-              isLight ? 'text-slate-600' : 'text-slate-300'
-            }`}>
+            <div className="text-xs sm:text-sm leading-relaxed space-y-3 whitespace-pre-line text-slate-600">
               {product.description || 'No detailed description available.'}
             </div>
           </div>
 
           {/* Specifications Table */}
-          <div className={`p-6 sm:p-8 rounded-3xl border ${
-            isLight ? 'bg-white border-slate-200' : 'bg-[#0E1526] border-slate-800'
-          }`}>
-            <h3 className={`font-display text-lg font-bold mb-4 ${isLight ? 'text-slate-900' : 'text-white'}`}>
+          <div className="p-6 sm:p-8 rounded-3xl border bg-white border-slate-200 shadow-sm">
+            <h3 className="font-display text-lg font-bold mb-4 text-slate-900">
               Technical Specifications
             </h3>
             {product.specifications && product.specifications.length > 0 ? (
-              <div className="divide-y divide-slate-800/60 text-xs">
+              <div className="divide-y divide-slate-100 text-xs">
                 {product.specifications.map((spec, idx) => (
                   <div key={idx} className="py-2.5 flex items-center justify-between">
-                    <span className="text-slate-400 font-medium">{spec.label}</span>
-                    <span className={`font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                    <span className="text-slate-500 font-medium">{spec.label}</span>
+                    <span className="font-bold text-slate-900">
                       {spec.value}
                     </span>
                   </div>
@@ -457,8 +451,8 @@ export default function ProductDetailClient({
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div className="pt-8 border-t border-slate-800/60">
-            <h3 className={`font-display text-xl font-bold mb-6 ${isLight ? 'text-slate-900' : 'text-white'}`}>
+          <div className="pt-8 border-t border-slate-200">
+            <h3 className="font-display text-xl font-bold mb-6 text-slate-900">
               You May Also Like
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">

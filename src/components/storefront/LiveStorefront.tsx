@@ -3,19 +3,15 @@
 import React, { useState, useMemo } from 'react';
 import {
   Search,
-  SlidersHorizontal,
   LayoutGrid,
   List,
-  Sparkles,
   Zap,
-  Tag,
   CheckCircle2,
   X,
 } from 'lucide-react';
 import type { Category, Product, Settings } from '@/types/database';
 import ProductCard from './ProductCard';
 import ShopByCategoryGrid from './ShopByCategoryGrid';
-import { useTheme } from '@/components/theme/ThemeProvider';
 
 export default function LiveStorefront({
   initialProducts = [],
@@ -26,9 +22,6 @@ export default function LiveStorefront({
   categories: Category[];
   settings: Settings | null;
 }) {
-  const { theme } = useTheme();
-  const isLight = theme === 'light';
-
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [inStockOnly, setInStockOnly] = useState(false);
@@ -102,11 +95,7 @@ export default function LiveStorefront({
       />
 
       {/* Filter and Control Bar */}
-      <div className={`p-4 rounded-2xl border mb-8 transition-colors ${
-        isLight
-          ? 'bg-white border-slate-200/90 shadow-subtle'
-          : 'bg-[#0E1526] border-slate-800/80 shadow-md'
-      }`}>
+      <div className="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm mb-8 transition-colors">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
           {/* Search Input */}
           <div className="relative flex-1 max-w-md">
@@ -115,17 +104,13 @@ export default function LiveStorefront({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search products in catalogue..."
-              className={`w-full pl-10 pr-9 py-2.5 text-xs rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
-                isLight
-                  ? 'bg-slate-50 border-slate-300 text-slate-900 focus:bg-white focus:border-blue-500'
-                  : 'bg-slate-900 border-slate-800 text-white focus:bg-slate-950 focus:border-blue-500'
-              }`}
+              className="w-full pl-10 pr-9 py-2.5 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
             <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-3 text-slate-400 hover:text-white"
+                className="absolute right-3 top-3 text-slate-400 hover:text-slate-700"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -139,13 +124,11 @@ export default function LiveStorefront({
               onClick={() => setDealsOnly(!dealsOnly)}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition active:scale-95 ${
                 dealsOnly
-                  ? 'bg-amber-500/20 text-amber-400 border-amber-500/40'
-                  : isLight
-                  ? 'bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900'
-                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                  ? 'bg-amber-100 text-amber-900 border-amber-300 font-bold'
+                  : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
               }`}
             >
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
+              <Zap className="w-3.5 h-3.5 text-amber-600" />
               <span>Deals</span>
             </button>
 
@@ -154,28 +137,22 @@ export default function LiveStorefront({
               onClick={() => setInStockOnly(!inStockOnly)}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition active:scale-95 ${
                 inStockOnly
-                  ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
-                  : isLight
-                  ? 'bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900'
-                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                  ? 'bg-emerald-100 text-emerald-900 border-emerald-300 font-bold'
+                  : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
               }`}
             >
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
               <span>In Stock Only</span>
             </button>
 
             {/* Sort Dropdown */}
             <div className="flex items-center gap-1.5">
-              <span className="text-xs text-slate-400 hidden sm:inline">Sort:</span>
+              <span className="text-xs text-slate-500 hidden sm:inline">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
                 aria-label="Sort products by"
-                className={`py-2 px-3 text-xs rounded-xl border focus:outline-none focus:border-blue-500 cursor-pointer ${
-                  isLight
-                    ? 'bg-slate-50 border-slate-200 text-slate-900'
-                    : 'bg-slate-900 border-slate-800 text-white'
-                }`}
+                className="py-2 px-3 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:bg-white focus:outline-none focus:border-blue-500 cursor-pointer"
               >
                 <option value="default">Featured</option>
                 <option value="price_asc">Price: Low to High</option>
@@ -186,13 +163,13 @@ export default function LiveStorefront({
             </div>
 
             {/* View Mode Switcher */}
-            <div className="flex items-center border border-slate-800 rounded-xl overflow-hidden p-0.5">
+            <div className="flex items-center border border-slate-200 bg-slate-100 rounded-xl overflow-hidden p-0.5">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-1.5 rounded-lg transition ${
                   viewMode === 'grid'
-                    ? 'bg-blue-600 text-white'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-900'
                 }`}
                 aria-label="Grid view"
               >
@@ -202,8 +179,8 @@ export default function LiveStorefront({
                 onClick={() => setViewMode('list')}
                 className={`p-1.5 rounded-lg transition ${
                   viewMode === 'list'
-                    ? 'bg-blue-600 text-white'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-900'
                 }`}
                 aria-label="List view"
               >
@@ -214,19 +191,19 @@ export default function LiveStorefront({
         </div>
 
         {/* Results Counter */}
-        <div className="flex items-center justify-between pt-3 mt-3 border-t border-slate-800/40 text-xs text-slate-400">
+        <div className="flex items-center justify-between pt-3 mt-3 border-t border-slate-100 text-xs text-slate-500">
           <span>
-            Showing <strong className={isLight ? 'text-slate-900' : 'text-white'}>{filteredProducts.length}</strong> products
+            Showing <strong className="text-slate-900 font-bold">{filteredProducts.length}</strong> products
           </span>
-          {(selectedCategory !== 'all' || inStockOnly || dealsOnly || searchQuery) && (
+          {(searchQuery || selectedCategory !== 'all' || inStockOnly || dealsOnly) && (
             <button
               onClick={() => {
+                setSearchQuery('');
                 setSelectedCategory('all');
                 setInStockOnly(false);
                 setDealsOnly(false);
-                setSearchQuery('');
               }}
-              className="text-blue-500 hover:underline font-semibold"
+              className="text-blue-600 hover:underline font-semibold"
             >
               Reset Filters
             </button>
@@ -234,8 +211,29 @@ export default function LiveStorefront({
         </div>
       </div>
 
-      {/* Products Grid / List */}
-      {filteredProducts.length > 0 ? (
+      {/* Product Grid / Empty State */}
+      {filteredProducts.length === 0 ? (
+        <div className="text-center py-20 bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
+          <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4">
+            <Search className="w-7 h-7" />
+          </div>
+          <h3 className="font-display font-bold text-lg text-slate-900 mb-1">No products match your criteria</h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto mb-6">
+            Try adjusting your search terms or clearing active filters to browse our full tech catalog.
+          </p>
+          <button
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedCategory('all');
+              setInStockOnly(false);
+              setDealsOnly(false);
+            }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition"
+          >
+            Show All Products
+          </button>
+        </div>
+      ) : (
         <div
           className={
             viewMode === 'grid'
@@ -244,36 +242,8 @@ export default function LiveStorefront({
           }
         >
           {filteredProducts.map((product, idx) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              priority={idx < 4}
-            />
+            <ProductCard key={product.id} product={product} priority={idx < 4} />
           ))}
-        </div>
-      ) : (
-        /* Empty State */
-        <div className="text-center py-16 px-4 rounded-3xl border border-dashed border-slate-800 max-w-md mx-auto">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-900 flex items-center justify-center text-slate-500">
-            <Search className="w-8 h-8" />
-          </div>
-          <h3 className={`font-display text-lg font-bold mb-1 ${isLight ? 'text-slate-900' : 'text-white'}`}>
-            No products match your criteria
-          </h3>
-          <p className="text-xs text-slate-400 mb-6">
-            Try adjusting your search terms or clearing active filters to browse the full catalogue.
-          </p>
-          <button
-            onClick={() => {
-              setSelectedCategory('all');
-              setInStockOnly(false);
-              setDealsOnly(false);
-              setSearchQuery('');
-            }}
-            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-glow"
-          >
-            Clear All Filters
-          </button>
         </div>
       )}
     </section>

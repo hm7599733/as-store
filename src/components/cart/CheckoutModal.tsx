@@ -10,13 +10,11 @@ import {
   AlertCircle,
   PhoneCall,
   FileText,
-  ShoppingBag,
   CreditCard,
   Banknote,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
-import { useTheme } from '@/components/theme/ThemeProvider';
 import { formatPrice, cleanPakistaniPhoneDigits } from '@/lib/utils';
 
 export default function CheckoutModal() {
@@ -34,8 +32,6 @@ export default function CheckoutModal() {
   } = useCart();
 
   const { user, profile } = useAuth();
-  const { theme } = useTheme();
-  const isLight = theme === 'light';
 
   const [customerName, setCustomerName] = useState('');
   const [phone, setPhone] = useState('');
@@ -130,30 +126,26 @@ export default function CheckoutModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
       {/* Light-dismiss backdrop */}
       <div className="absolute inset-0" onClick={orderComplete ? undefined : closeCheckout} />
 
       {/* Modal Dialog */}
       <div
-        className={`relative z-10 w-full max-w-xl max-h-[92vh] overflow-y-auto rounded-3xl border p-5 sm:p-8 transition-all ${
-          isLight
-            ? 'bg-white border-slate-200 shadow-2xl text-slate-900'
-            : 'bg-[#0E1526] border-slate-800 shadow-2xl text-white'
-        }`}
+        className="relative z-10 w-full max-w-xl max-h-[92vh] overflow-y-auto rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-2xl text-slate-900 transition-all"
         style={{ overscrollBehavior: 'contain' }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800/60 pb-4 mb-5">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">
               AS
             </div>
             <div>
-              <h3 className="font-display font-black text-base sm:text-lg">
+              <h3 className="font-display font-black text-base sm:text-lg text-slate-900">
                 {orderComplete ? 'Order Confirmed!' : 'Checkout & Delivery'}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 {orderComplete
                   ? 'Your order has been recorded successfully'
                   : 'Fast Cash on Delivery across Pakistan'}
@@ -163,7 +155,7 @@ export default function CheckoutModal() {
           {!orderComplete && (
             <button
               onClick={closeCheckout}
-              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition"
+              className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -174,31 +166,31 @@ export default function CheckoutModal() {
         {/* ORDER SUCCESS VIEW */}
         {orderComplete ? (
           <div className="py-4 text-center space-y-6 animate-fade-in">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200">
               <CheckCircle2 className="w-10 h-10" />
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-display text-xl sm:text-2xl font-black text-emerald-400">
+              <h4 className="font-display text-xl sm:text-2xl font-black text-emerald-700">
                 Order {orderComplete.orderNumber} Placed!
               </h4>
-              <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
                 Thank you for choosing <strong>AS Store</strong>. Tap the button below to send your confirmation on WhatsApp for instant packing and dispatch!
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 text-left text-xs space-y-1.5">
-              <div className="flex justify-between text-slate-400">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left text-xs space-y-1.5">
+              <div className="flex justify-between text-slate-600">
                 <span>Order Reference:</span>
-                <strong className="text-white">{orderComplete.orderNumber}</strong>
+                <strong className="text-slate-900 font-bold">{orderComplete.orderNumber}</strong>
               </div>
-              <div className="flex justify-between text-slate-400">
+              <div className="flex justify-between text-slate-600">
                 <span>Status:</span>
-                <span className="text-amber-400 font-semibold">Pending WhatsApp Confirmation</span>
+                <span className="text-amber-700 font-semibold">Pending WhatsApp Confirmation</span>
               </div>
-              <div className="flex justify-between text-slate-400">
+              <div className="flex justify-between text-slate-600">
                 <span>Delivery:</span>
-                <span className="text-white">{city}, Pakistan</span>
+                <span className="text-slate-900 font-medium">{city}, Pakistan</span>
               </div>
             </div>
 
@@ -207,7 +199,7 @@ export default function CheckoutModal() {
                 href={orderComplete.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all shadow-glow-emerald"
+                className="flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-all shadow-md"
               >
                 <PhoneCall className="w-4 h-4" />
                 <span>Send Confirmation on WhatsApp</span>
@@ -216,7 +208,7 @@ export default function CheckoutModal() {
               <Link
                 href={`/invoice/${orderComplete.orderId}`}
                 target="_blank"
-                className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-200 text-xs font-semibold transition"
+                className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition"
               >
                 <FileText className="w-4 h-4" />
                 <span>View / Print Invoice</span>
@@ -227,7 +219,7 @@ export default function CheckoutModal() {
                   setOrderComplete(null);
                   closeCheckout();
                 }}
-                className="text-xs text-slate-400 hover:text-white transition pt-2"
+                className="text-xs text-slate-500 hover:text-slate-800 transition pt-2"
               >
                 Back to Shopping
               </button>
@@ -237,7 +229,7 @@ export default function CheckoutModal() {
           /* CHECKOUT FORM VIEW */
           <form onSubmit={handleSubmit} className="space-y-4">
             {errorMessage && (
-              <div className="flex items-center gap-2 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs">
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errorMessage}</span>
               </div>
@@ -245,7 +237,7 @@ export default function CheckoutModal() {
 
             {/* Customer Name */}
             <div>
-              <label className="block text-xs font-bold mb-1.5">
+              <label className="block text-xs font-bold mb-1.5 text-slate-700">
                 Full Name <span className="text-rose-500">*</span>
               </label>
               <input
@@ -254,17 +246,13 @@ export default function CheckoutModal() {
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="Muhammad Ali"
-                className={`w-full px-3.5 py-2.5 text-xs rounded-xl border focus:outline-none focus:border-blue-500 ${
-                  isLight
-                    ? 'bg-slate-50 border-slate-300 text-slate-900'
-                    : 'bg-slate-900 border-slate-800 text-white'
-                }`}
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
             {/* WhatsApp Phone */}
             <div>
-              <label className="block text-xs font-bold mb-1.5">
+              <label className="block text-xs font-bold mb-1.5 text-slate-700">
                 WhatsApp Mobile Number <span className="text-rose-500">*</span>
               </label>
               <input
@@ -273,18 +261,14 @@ export default function CheckoutModal() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="0300 1234567"
-                className={`w-full px-3.5 py-2.5 text-xs rounded-xl border focus:outline-none focus:border-blue-500 ${
-                  isLight
-                    ? 'bg-slate-50 border-slate-300 text-slate-900'
-                    : 'bg-slate-900 border-slate-800 text-white'
-                }`}
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500"
               />
               <p className="text-[11px] text-slate-500 mt-1">We will send dispatch alerts to this WhatsApp number.</p>
             </div>
 
             {/* City */}
             <div>
-              <label className="block text-xs font-bold mb-1.5">
+              <label className="block text-xs font-bold mb-1.5 text-slate-700">
                 Delivery City <span className="text-rose-500">*</span>
               </label>
               <input
@@ -293,17 +277,13 @@ export default function CheckoutModal() {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="Lahore, Karachi, Islamabad, etc."
-                className={`w-full px-3.5 py-2.5 text-xs rounded-xl border focus:outline-none focus:border-blue-500 ${
-                  isLight
-                    ? 'bg-slate-50 border-slate-300 text-slate-900'
-                    : 'bg-slate-900 border-slate-800 text-white'
-                }`}
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
             {/* Address */}
             <div>
-              <label className="block text-xs font-bold mb-1.5">
+              <label className="block text-xs font-bold mb-1.5 text-slate-700">
                 Complete Delivery Address <span className="text-rose-500">*</span>
               </label>
               <textarea
@@ -312,30 +292,24 @@ export default function CheckoutModal() {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="House / Flat No., Street, Sector / Area, Landmark"
-                className={`w-full px-3.5 py-2.5 text-xs rounded-xl border focus:outline-none focus:border-blue-500 resize-none ${
-                  isLight
-                    ? 'bg-slate-50 border-slate-300 text-slate-900'
-                    : 'bg-slate-900 border-slate-800 text-white'
-                }`}
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-300 bg-slate-50 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500 resize-none"
               />
             </div>
 
             {/* Payment Method */}
             <div>
-              <label className="block text-xs font-bold mb-1.5">Payment Method</label>
+              <label className="block text-xs font-bold mb-1.5 text-slate-700">Payment Method</label>
               <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('cod')}
                   className={`flex items-center gap-2.5 p-3 rounded-xl border text-left text-xs font-bold transition ${
                     paymentMethod === 'cod'
-                      ? 'border-blue-500 bg-blue-500/10 text-blue-400'
-                      : isLight
-                      ? 'border-slate-200 bg-slate-50 text-slate-600'
-                      : 'border-slate-800 bg-slate-900 text-slate-400'
+                      ? 'border-blue-600 bg-blue-50 text-blue-800'
+                      : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
                   }`}
                 >
-                  <Banknote className="w-4 h-4 text-blue-400" />
+                  <Banknote className="w-4 h-4 text-blue-600" />
                   <div>
                     <span className="block">Cash on Delivery</span>
                     <span className="text-[10px] text-slate-500 font-normal">Pay at doorstep</span>
@@ -347,13 +321,11 @@ export default function CheckoutModal() {
                   onClick={() => setPaymentMethod('online')}
                   className={`flex items-center gap-2.5 p-3 rounded-xl border text-left text-xs font-bold transition ${
                     paymentMethod === 'online'
-                      ? 'border-blue-500 bg-blue-500/10 text-blue-400'
-                      : isLight
-                      ? 'border-slate-200 bg-slate-50 text-slate-600'
-                      : 'border-slate-800 bg-slate-900 text-slate-400'
+                      ? 'border-blue-600 bg-blue-50 text-blue-800'
+                      : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
                   }`}
                 >
-                  <CreditCard className="w-4 h-4 text-amber-400" />
+                  <CreditCard className="w-4 h-4 text-amber-600" />
                   <div>
                     <span className="block">Online Transfer</span>
                     <span className="text-[10px] text-slate-500 font-normal">JazzCash / EasyPaisa</span>
@@ -363,28 +335,24 @@ export default function CheckoutModal() {
             </div>
 
             {/* Order Summary box */}
-            <div className={`p-4 rounded-2xl border text-xs space-y-1.5 ${
-              isLight ? 'bg-slate-50 border-slate-200' : 'bg-slate-900/60 border-slate-800'
-            }`}>
-              <div className="flex justify-between text-slate-400">
+            <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50 text-xs space-y-1.5">
+              <div className="flex justify-between text-slate-600">
                 <span>Items Subtotal:</span>
-                <span className={isLight ? 'text-slate-900 font-semibold' : 'text-white font-semibold'}>
-                  {formatPrice(subtotal)}
-                </span>
+                <span className="text-slate-900 font-semibold">{formatPrice(subtotal)}</span>
               </div>
               {(couponDiscount > 0 || bundleDiscount > 0) && (
-                <div className="flex justify-between text-emerald-400">
+                <div className="flex justify-between text-emerald-700">
                   <span>Total Discount:</span>
                   <span>-{formatPrice(couponDiscount + bundleDiscount)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-slate-400">
+              <div className="flex justify-between text-slate-600">
                 <span>Delivery:</span>
-                <span>{deliveryCharges === 0 ? <strong className="text-emerald-400">FREE</strong> : formatPrice(deliveryCharges)}</span>
+                <span>{deliveryCharges === 0 ? <strong className="text-emerald-700 font-bold uppercase">FREE</strong> : formatPrice(deliveryCharges)}</span>
               </div>
-              <div className="flex justify-between text-sm font-black pt-2 border-t border-slate-800">
-                <span className={isLight ? 'text-slate-900' : 'text-white'}>Amount to Pay:</span>
-                <span className="text-blue-500 font-display">{formatPrice(totalAmount)}</span>
+              <div className="flex justify-between text-sm font-black pt-2 border-t border-slate-200">
+                <span className="text-slate-900">Amount to Pay:</span>
+                <span className="text-blue-600 font-display text-base">{formatPrice(totalAmount)}</span>
               </div>
             </div>
 
@@ -392,7 +360,7 @@ export default function CheckoutModal() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition shadow-glow disabled:opacity-50 active:scale-95 cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow-md disabled:opacity-50 active:scale-95 cursor-pointer"
             >
               {loading ? (
                 <span>Placing Order...</span>

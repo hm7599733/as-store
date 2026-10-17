@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import {
   BatteryCharging,
   Headphones,
@@ -13,7 +12,6 @@ import {
   Layers,
 } from 'lucide-react';
 import type { Category } from '@/types/database';
-import { useTheme } from '@/components/theme/ThemeProvider';
 
 function getCategoryIcon(name: string) {
   const lower = name.toLowerCase();
@@ -36,19 +34,14 @@ export default function ShopByCategoryGrid({
   selectedCategory?: string;
   onSelectCategory?: (slug: string) => void;
 }) {
-  const { theme } = useTheme();
-  const isLight = theme === 'light';
-
   return (
     <div className="py-6">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className={`font-display text-lg sm:text-xl font-black ${
-            isLight ? 'text-slate-900' : 'text-white'
-          }`}>
+          <h3 className="font-display text-lg sm:text-xl font-black text-slate-900">
             Browse By Category
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">Explore tested accessories for every device</p>
+          <p className="text-xs text-slate-500 mt-0.5">Explore tested accessories for every device</p>
         </div>
       </div>
 
@@ -57,10 +50,8 @@ export default function ShopByCategoryGrid({
           onClick={() => onSelectCategory && onSelectCategory('all')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 active:scale-95 ${
             selectedCategory === 'all' || !selectedCategory
-              ? 'bg-blue-600 text-white shadow-glow'
-              : isLight
-              ? 'bg-white border border-slate-200 text-slate-700 hover:border-slate-300'
-              : 'bg-slate-900/80 border border-slate-800 text-slate-300 hover:border-slate-700'
+              ? 'bg-blue-600 text-white shadow-sm'
+              : 'bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50 shadow-sm'
           }`}
         >
           <Layers className="w-4 h-4" />
@@ -75,13 +66,11 @@ export default function ShopByCategoryGrid({
               onClick={() => onSelectCategory && onSelectCategory(cat.slug)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 active:scale-95 ${
                 isSelected
-                  ? 'bg-blue-600 text-white shadow-glow'
-                  : isLight
-                  ? 'bg-white border border-slate-200 text-slate-700 hover:border-slate-300'
-                  : 'bg-slate-900/80 border border-slate-800 text-slate-300 hover:border-slate-700'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50 shadow-sm'
               }`}
             >
-              <span className={isSelected ? 'text-white' : 'text-blue-400'}>
+              <span className={isSelected ? 'text-white' : 'text-blue-600'}>
                 {getCategoryIcon(cat.name)}
               </span>
               <span>{cat.name}</span>
