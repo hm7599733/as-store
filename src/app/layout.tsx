@@ -41,13 +41,15 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+import ScrollToTopButton from '@/components/storefront/ScrollToTopButton';
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="light" className="light">
+    <html lang="en" data-theme="dark" className="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -56,11 +58,14 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#F8FAFC] text-slate-900 transition-colors duration-200">
+      <body className="bg-[#070D1E] text-slate-100 transition-colors duration-200">
         <ThemeProvider>
           <ToastProvider>
             <AuthProvider>
-              <CartProvider>{children}</CartProvider>
+              <CartProvider>
+                {children}
+                <ScrollToTopButton />
+              </CartProvider>
             </AuthProvider>
           </ToastProvider>
         </ThemeProvider>

@@ -32,8 +32,12 @@ export default function Hero({
           <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             {/* Left Content (7 cols) */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-6 z-10">
-              {/* Cyber Cyan Badge */}
+              {/* Cyber Cyan Badge with Animated TOP Pill */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 text-xs font-bold">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-black text-[9px] uppercase tracking-wider animate-pulse shadow-xs shadow-cyan-400/50">
+                  <span className="w-1 h-1 rounded-full bg-slate-950 animate-ping" />
+                  TOP
+                </span>
                 <Zap className="w-3.5 h-3.5 text-[#06B6D4] fill-[#06B6D4]" />
                 <span>NEXT-GEN POWER & AUDIO GEAR</span>
               </div>

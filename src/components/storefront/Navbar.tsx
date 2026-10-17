@@ -14,6 +14,8 @@ import {
   ChevronDown,
   PhoneCall,
   Zap,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -40,6 +42,38 @@ export default function Navbar({
   const freeThreshold = settings?.free_shipping_threshold ?? 3000;
   const businessPhone = settings?.contact_phone || '+92 320 1042634';
 
+  const notices = [
+    {
+      badge: 'TOP DEAL',
+      text: `Free Express Delivery nationwide on orders over Rs. ${freeThreshold.toLocaleString()}!`,
+    },
+    {
+      badge: 'TOP TECH',
+      text: '20,000mAh High-Capacity Power Banks & 65W GaN Fast Chargers with official warranty.',
+    },
+    {
+      badge: 'TOP AUDIO',
+      text: 'Studio-grade ENC Wireless Airbuds with deep punchy bass & clear calls.',
+    },
+    {
+      badge: 'TOP WARRANTY',
+      text: '100% Original Certified Products with 7-Day Easy Replacement Policy.',
+    },
+    {
+      badge: 'TOP SUPPORT',
+      text: `Official 24/7 Helpline & WhatsApp: ${businessPhone}`,
+    },
+  ];
+
+  const [activeNoticeIdx, setActiveNoticeIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveNoticeIdx((prev) => (prev + 1) % notices.length);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [notices.length]);
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -61,17 +95,51 @@ export default function Navbar({
 
   return (
     <header className="sticky top-0 z-40 bg-[#0B132B] text-white shadow-lg transition-all border-b border-cyan-950/60">
-      {/* Top Notification / Hotline Strip */}
-      <div className="bg-[#060C1B] text-slate-300 text-[11px] py-1.5 px-4 sm:px-6 border-b border-slate-800/80">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="flex h-1.5 w-1.5 rounded-full bg-[#06B6D4] animate-pulse" />
-            <span>
-              ⚡ <strong className="text-white">Free Express Delivery</strong> on orders over Rs. {freeThreshold.toLocaleString()}
+      {/* Top Animated Notification / Hotline Strip */}
+      <div className="bg-[#050A17] text-slate-300 text-[11px] py-1.5 px-4 sm:px-6 border-b border-cyan-950/80 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
+          <div className="flex items-center gap-2.5 overflow-hidden">
+            {/* Glowing Animated TOP Badge */}
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500 text-slate-950 font-black text-[9px] tracking-widest uppercase shadow-sm shadow-cyan-400/50 animate-pulse shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-950 animate-ping" />
+              TOP
             </span>
+
+            {/* Cycling animated announcement message */}
+            <div className="relative h-5 overflow-hidden flex items-center">
+              <div
+                key={activeNoticeIdx}
+                className="flex items-center gap-1.5 text-slate-200 animate-slide-up"
+              >
+                <span className="text-[10px] font-black text-cyan-300 uppercase tracking-wider hidden sm:inline">
+                  [{notices[activeNoticeIdx].badge}]
+                </span>
+                <span className="font-medium text-slate-200 line-clamp-1">
+                  {notices[activeNoticeIdx].text}
+                </span>
+              </div>
+            </div>
+
+            {/* Manual cycling arrows */}
+            <div className="hidden sm:flex items-center gap-1 pl-2 text-slate-500 shrink-0">
+              <button
+                onClick={() => setActiveNoticeIdx((prev) => (prev - 1 + notices.length) % notices.length)}
+                className="p-0.5 hover:text-cyan-400 transition cursor-pointer"
+                aria-label="Previous announcement"
+              >
+                <ChevronLeft className="w-3 h-3" />
+              </button>
+              <button
+                onClick={() => setActiveNoticeIdx((prev) => (prev + 1) % notices.length)}
+                className="p-0.5 hover:text-cyan-400 transition cursor-pointer"
+                aria-label="Next announcement"
+              >
+                <ChevronRight className="w-3 h-3" />
+              </button>
+            </div>
           </div>
 
-          <div className="hidden sm:flex items-center gap-4 text-slate-400">
+          <div className="hidden sm:flex items-center gap-4 text-slate-400 shrink-0">
             <a
               href={`tel:${businessPhone.replace(/\s+/g, '')}`}
               className="flex items-center gap-1.5 hover:text-[#06B6D4] transition"
@@ -80,7 +148,10 @@ export default function Navbar({
               <span className="font-semibold text-slate-200">{businessPhone}</span>
             </a>
             <span className="text-slate-700">|</span>
-            <span className="text-slate-400">Cash on Delivery Nationwide</span>
+            <span className="text-slate-400 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Cash on Delivery Nationwide
+            </span>
           </div>
         </div>
       </div>
