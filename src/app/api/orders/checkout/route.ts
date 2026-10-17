@@ -255,7 +255,7 @@ export async function POST(request: Request) {
     }
 
     // Generate WhatsApp notification message
-    const rawWhatsAppNumber = settings?.whatsapp_number || '+92 348 9593671';
+    const rawWhatsAppNumber = settings?.whatsapp_number || '+92 320 1042634';
     const waMessage = buildWhatsAppCheckoutMessage({
       orderId: order.id,
       orderNumber: order.order_number,

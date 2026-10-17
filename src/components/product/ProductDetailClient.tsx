@@ -84,7 +84,7 @@ export default function ProductDetailClient({
     openCheckout();
   };
 
-  const rawPhone = settings?.whatsapp_number || '+92 348 9593671';
+  const rawPhone = settings?.whatsapp_number || '+92 320 1042634';
   const waInquiryUrl = createWhatsAppUrl(
     rawPhone,
     buildProductInquiryWhatsAppMessage({

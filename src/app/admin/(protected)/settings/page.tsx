@@ -105,7 +105,7 @@ export default function AdminSettingsPage() {
                   type="text"
                   value={settings.whatsapp_number || ''}
                   onChange={(e) => setSettings({ ...settings, whatsapp_number: e.target.value })}
-                  placeholder="+92 348 9593671"
+                  placeholder="+92 320 1042634"
                   className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-blue-500"
                 />
               </div>

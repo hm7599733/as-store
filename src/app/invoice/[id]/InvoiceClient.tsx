@@ -104,7 +104,7 @@ export default function InvoiceClient({ order }: { order: Order }) {
               Lahore Hub, Punjab, Pakistan
             </div>
             <div className="text-slate-300 print:text-slate-800">
-              Official Helpline: +92 348 9593671
+              Official Helpline: +92 320 1042634
             </div>
             <div className="text-slate-400 print:text-slate-600 text-[11px] pt-1">
               Web: www.asstore.pk

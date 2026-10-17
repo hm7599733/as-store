@@ -13,7 +13,7 @@ import {
 import type { Settings } from '@/types/database';
 
 export default function Footer({ settings }: { settings: Settings | null }) {
-  const rawPhone = settings?.whatsapp_number || '+92 348 9593671';
+  const rawPhone = settings?.whatsapp_number || '+92 320 1042634';
   const cleanPhone = rawPhone.replace(/\D/g, '');
 
   return (

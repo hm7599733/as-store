@@ -31,12 +31,12 @@ export default function TopTicker({ settings }: { settings: Settings | null }) {
         <div className="hidden lg:flex items-center gap-2 text-slate-300 hover:text-white transition">
           <Headphones className="w-3.5 h-3.5 text-blue-400" />
           <a
-            href={`https://wa.me/${(settings?.whatsapp_number || '+923489593671').replace(/\D/g, '')}`}
+            href={`https://wa.me/${(settings?.whatsapp_number || '+923201042634').replace(/\D/g, '')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline"
           >
-            24/7 Support: {settings?.whatsapp_number || '+92 348 9593671'}
+            24/7 Support: {settings?.whatsapp_number || '+92 320 1042634'}
           </a>
         </div>
       </div>

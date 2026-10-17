@@ -95,7 +95,7 @@ export const getSettings = unstable_cache(
           id: 1,
           business_name: 'AS Store',
           logo_url: null,
-          whatsapp_number: '+92 348 9593671',
+          whatsapp_number: '+92 320 1042634',
           email: 'support@asstore.pk',
           address: 'Lahore, Pakistan',
           facebook: null,

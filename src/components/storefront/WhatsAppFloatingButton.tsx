@@ -8,7 +8,7 @@ export default function WhatsAppFloatingButton({
 }: {
   whatsappNumber: string | null;
 }) {
-  const number = (whatsappNumber || '+92 348 9593671').replace(/\D/g, '');
+  const number = (whatsappNumber || '+92 320 1042634').replace(/\D/g, '');
 
   return (
     <aside aria-label="Support Chat" className="fixed bottom-6 right-6 z-40 group">

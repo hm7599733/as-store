@@ -116,7 +116,7 @@ CREATE TABLE public.settings (
   id int PRIMARY KEY DEFAULT 1,
   business_name text NOT NULL DEFAULT 'AS Store',
   logo_url text,
-  whatsapp_number text NOT NULL DEFAULT '+92 348 9593671',
+  whatsapp_number text NOT NULL DEFAULT '+92 320 1042634',
   email text DEFAULT 'support@asstore.pk',
   address text DEFAULT 'Lahore, Punjab, Pakistan',
   facebook text,
@@ -551,6 +551,6 @@ INSERT INTO public.coupons (id, code, discount_type, discount_value, minimum_ord
 INSERT INTO public.coupons (id, code, discount_type, discount_value, minimum_order, maximum_discount, expiry_date, usage_limit, times_used, active, created_at) VALUES ('df6078f3-2312-4bbe-b8b7-f054f91b7bd3', 'MARYAM', 'percentage', 7, 2000, NULL, NULL, NULL, 0, TRUE, '2026-10-17T08:29:34.629115+00:00') ON CONFLICT (id) DO NOTHING;
 
 -- SETTINGS SEED
-INSERT INTO public.settings (id, business_name, whatsapp_number, email, address, business_greeting, order_message_template, currency, currency_symbol, delivery_charges, free_shipping_threshold, bundle_tier1_threshold, bundle_tier1_percent, bundle_tier2_threshold, bundle_tier2_percent, online_payment_enabled, payment_method_name, payment_account_name, payment_account_number, payment_accounts) VALUES (1, 'AS Store', '+92 348 9593671', 'support@asstore.pk', 'Lahore, Punjab, Pakistan', 'Hello AS Store!', 'Hello AS Store!
+INSERT INTO public.settings (id, business_name, whatsapp_number, email, address, business_greeting, order_message_template, currency, currency_symbol, delivery_charges, free_shipping_threshold, bundle_tier1_threshold, bundle_tier1_percent, bundle_tier2_threshold, bundle_tier2_percent, online_payment_enabled, payment_method_name, payment_account_name, payment_account_number, payment_accounts) VALUES (1, 'AS Store', '+92 320 1042634', 'support@asstore.pk', 'Lahore, Punjab, Pakistan', 'Hello AS Store!', 'Hello AS Store!
 
-I want to confirm my order.', 'PKR', 'Rs.', 200, 3000, 3000, 5, 6000, 10, true, 'JazzCash', 'AS Store', '03264227243', '[{"id":"834c09d3-a0ee-40a4-83d7-9c4a7b1b8fbe","name":"JazzCash","bank_name":null,"is_active":true,"sort_order":1,"account_name":"AS Store","instructions":"Transfer payment to this account and share screenshot on WhatsApp with your Order ID.","account_number":"03264227243","whatsapp_number":"+92 348 9593671","payment_method_name":"JazzCash"}]'::jsonb) ON CONFLICT (id) DO UPDATE SET business_name = 'AS Store', payment_account_name = 'AS Store';
+I want to confirm my order.', 'PKR', 'Rs.', 200, 3000, 3000, 5, 6000, 10, true, 'JazzCash', 'AS Store', '03264227243', '[{"id":"834c09d3-a0ee-40a4-83d7-9c4a7b1b8fbe","name":"JazzCash","bank_name":null,"is_active":true,"sort_order":1,"account_name":"AS Store","instructions":"Transfer payment to this account and share screenshot on WhatsApp with your Order ID.","account_number":"03264227243","whatsapp_number":"+92 320 1042634","payment_method_name":"JazzCash"}]'::jsonb) ON CONFLICT (id) DO UPDATE SET business_name = 'AS Store', payment_account_name = 'AS Store';
