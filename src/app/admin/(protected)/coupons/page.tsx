@@ -15,18 +15,18 @@ export default async function AdminCouponsPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-black text-white">
+        <h1 className="font-display text-2xl sm:text-3xl font-black text-slate-900">
           Coupons & Promo Codes
         </h1>
-        <p className="text-xs text-slate-400 mt-1">
-          Active discount codes applicable during customer checkout.
+        <p className="text-xs text-slate-500 mt-1">
+          Active discount codes and promotional vouchers for <strong>AS Store</strong> customer checkout.
         </p>
       </div>
 
-      <div className="rounded-3xl bg-[#0E1526] border border-slate-800 overflow-hidden">
+      <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-900/60 text-slate-400 border-b border-slate-800 font-bold">
+            <thead className="bg-slate-50 text-slate-600 border-b border-slate-200 font-bold uppercase tracking-wider text-[11px]">
               <tr>
                 <th className="p-4">Coupon Code</th>
                 <th className="p-4">Discount Type</th>
@@ -36,29 +36,29 @@ export default async function AdminCouponsPage() {
                 <th className="p-4">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-100">
               {typedCoupons.map((coupon) => (
-                <tr key={coupon.id} className="hover:bg-slate-900/40 transition">
-                  <td className="p-4 font-mono font-bold text-emerald-400 text-sm">
+                <tr key={coupon.id} className="hover:bg-slate-50/70 transition">
+                  <td className="p-4 font-mono font-bold text-blue-600 text-sm">
                     {coupon.code}
                   </td>
-                  <td className="p-4 capitalize text-slate-300">
+                  <td className="p-4 capitalize text-slate-700 font-medium">
                     {coupon.discount_type}
                   </td>
-                  <td className="p-4 font-bold text-white">
+                  <td className="p-4 font-bold text-slate-900 font-display">
                     {coupon.discount_type === 'percentage'
                       ? `${coupon.discount_value}%`
                       : formatPrice(coupon.discount_value)}
                   </td>
-                  <td className="p-4 text-slate-400">
-                    {coupon.minimum_order ? formatPrice(coupon.minimum_order) : 'None'}
+                  <td className="p-4 text-slate-600">
+                    {coupon.minimum_order ? formatPrice(coupon.minimum_order) : 'No Minimum'}
                   </td>
-                  <td className="p-4 text-slate-300 font-mono">
+                  <td className="p-4 text-slate-700 font-mono font-semibold">
                     {coupon.times_used || 0}
                   </td>
                   <td className="p-4">
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                      coupon.active ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'
+                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                      coupon.active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
                     }`}>
                       {coupon.active ? 'Active' : 'Inactive'}
                     </span>

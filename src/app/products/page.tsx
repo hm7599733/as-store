@@ -25,15 +25,14 @@ export default async function ProductsCatalogPage() {
 
   return (
     <>
-      <TopTicker settings={settings} />
       <Navbar categories={categories} settings={settings} />
 
-      <main className="min-h-screen py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
-          <h1 className="font-display text-2xl sm:text-4xl font-black text-white">
-            All Products
+      <main className="min-h-screen py-6 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
+          <h1 className="font-display text-2xl sm:text-4xl font-black text-slate-900">
+            All Products & Gadgets
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Browse genuine mobile accessories and gadgets with nationwide cash on delivery.
           </p>
         </div>

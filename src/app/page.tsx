@@ -38,7 +38,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <TopTicker settings={settings} />
       <Navbar categories={categories} settings={settings} />
 
       <main>

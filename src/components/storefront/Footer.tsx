@@ -1,198 +1,218 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  PhoneCall,
-  Mail,
-  MapPin,
-  ShieldCheck,
-  Truck,
-  Zap,
+  Send,
+  CheckCircle2,
+  Lock,
 } from 'lucide-react';
+import AsStoreLogo from '@/components/brand/AsStoreLogo';
 import type { Settings } from '@/types/database';
 
 export default function Footer({ settings }: { settings: Settings | null }) {
-  const rawPhone = settings?.whatsapp_number || '+92 320 1042634';
-  const cleanPhone = rawPhone.replace(/\D/g, '');
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setSubscribed(true);
+      setTimeout(() => setSubscribed(false), 4000);
+      setEmail('');
+    }
+  };
 
   return (
-    <footer className="bg-slate-50 border-t border-slate-200 text-slate-600 transition-colors">
-      {/* Upper Footer: Value Props */}
-      <div className="border-b border-slate-200 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-              <Truck className="w-5 h-5" />
-            </div>
-            <div>
-              <h5 className="text-xs font-bold text-slate-900">
-                Nationwide Delivery
-              </h5>
-              <p className="text-[11px] text-slate-500">Cash on Delivery across Pakistan</p>
-            </div>
-          </div>
+    <footer className="bg-[#0B0F19] text-white border-t border-slate-800/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-slate-800/80">
+          {/* Column 1: Brand & Social (4 cols) */}
+          <div className="lg:col-span-4 space-y-4">
+            <AsStoreLogo variant="dark" size="md" />
 
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <h5 className="text-xs font-bold text-slate-900">
-                7-Day Replacement
-              </h5>
-              <p className="text-[11px] text-slate-500">Easy return & warranty protection</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-              <Zap className="w-5 h-5" />
-            </div>
-            <div>
-              <h5 className="text-xs font-bold text-slate-900">
-                100% Genuine Items
-              </h5>
-              <p className="text-[11px] text-slate-500">Strictly inspected & verified stock</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-              <PhoneCall className="w-5 h-5" />
-            </div>
-            <div>
-              <h5 className="text-xs font-bold text-slate-900">
-                WhatsApp Assistance
-              </h5>
-              <p className="text-[11px] text-slate-500">Real-time support and order tracking</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main 4-Column Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Brand Info (2 columns) */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-black text-sm">
-                AS
-              </div>
-              <span className="font-display font-black text-lg text-slate-900">
-                AS STORE
-              </span>
-            </Link>
-            <p className="text-xs text-slate-500 leading-relaxed max-w-sm">
-              AS Store delivers premium mobile accessories, power banks, fast chargers, earbuds, and everyday tech essentials with dependable nationwide Cash on Delivery across Pakistan.
+            <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
+              Your One Stop Gadget Store. Premium mobile accessories, GaN fast chargers, true wireless earbuds, and tech lifestyle essentials across Pakistan.
             </p>
-            <div className="pt-2 text-xs text-slate-600 space-y-2">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-blue-600 shrink-0" />
-                <span>Lahore, Punjab, Pakistan</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-blue-600 shrink-0" />
-                <a href="mailto:support@asstore.pk" className="hover:text-blue-600 transition">
-                  support@asstore.pk
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <PhoneCall className="w-4 h-4 text-blue-600 shrink-0" />
-                <a
-                  href={`https://wa.me/${cleanPhone}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-blue-600 transition"
+
+            {/* Social Icons (Mockup exact) */}
+            <div className="flex items-center gap-2.5 pt-2">
+              {/* Facebook */}
+              <a
+                href={settings?.facebook || 'https://facebook.com'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition"
+                aria-label="Facebook"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z" />
+                </svg>
+              </a>
+
+              {/* Instagram */}
+              <a
+                href={settings?.instagram || 'https://instagram.com'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition"
+                aria-label="Instagram"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+              </a>
+
+              {/* YouTube */}
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition"
+                aria-label="YouTube"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
+
+              {/* TikTok */}
+              <a
+                href={settings?.tiktok || 'https://tiktok.com'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#F59E0B] text-slate-300 hover:text-slate-950 flex items-center justify-center transition text-xs font-black"
+                aria-label="TikTok"
+              >
+                ♪
+              </a>
+            </div>
+
+            <p className="text-[11px] text-slate-500 pt-2">
+              © {new Date().getFullYear()} AS Store. All rights reserved.
+            </p>
+          </div>
+
+          {/* Column 2: Quick Links (2-3 cols) */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-black uppercase tracking-wider text-white">
+              Quick Links
+            </h4>
+            <ul className="space-y-2 text-xs text-slate-400 font-medium">
+              <li>
+                <Link href="/" className="hover:text-[#F59E0B] transition">Home</Link>
+              </li>
+              <li>
+                <Link href="/products" className="hover:text-[#F59E0B] transition">Shop</Link>
+              </li>
+              <li>
+                <Link href="/products?deals=true" className="hover:text-[#F59E0B] transition">Deals</Link>
+              </li>
+              <li>
+                <Link href="/products?sort=newest" className="hover:text-[#F59E0B] transition">New Arrivals</Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-[#F59E0B] transition">About Us</Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-[#F59E0B] transition">Contact</Link>
+              </li>
+              <li>
+                <Link href="/admin/login" className="hover:text-blue-400 transition text-[11px] text-slate-600 block pt-1">
+                  Store Staff Portal
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Customer Service (3 cols) */}
+          <div className="lg:col-span-3 space-y-3">
+            <h4 className="text-xs font-black uppercase tracking-wider text-white">
+              Customer Service
+            </h4>
+            <ul className="space-y-2 text-xs text-slate-400 font-medium">
+              <li>
+                <Link href="/contact" className="hover:text-[#F59E0B] transition">Help Center</Link>
+              </li>
+              <li>
+                <Link href="/shipping-policy" className="hover:text-[#F59E0B] transition">Shipping Policy</Link>
+              </li>
+              <li>
+                <Link href="/return-policy" className="hover:text-[#F59E0B] transition">Return & Refund Policy</Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-[#F59E0B] transition">Terms & Conditions</Link>
+              </li>
+              <li>
+                <Link href="/privacy-policy" className="hover:text-[#F59E0B] transition">Privacy Policy</Link>
+              </li>
+              <li>
+                <span className="text-slate-400 text-[11px] block pt-1">
+                  Helpline: <strong className="text-[#F59E0B]">{settings?.whatsapp_number || '+92 320 1042634'}</strong>
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Newsletter Subscription (3 cols) (Mockup exact) */}
+          <div className="lg:col-span-3 space-y-3">
+            <h4 className="text-xs font-black uppercase tracking-wider text-white">
+              Subscribe to Our Newsletter
+            </h4>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Get the latest updates, offers and more.
+            </p>
+
+            <form onSubmit={handleSubscribe} className="space-y-2">
+              <div className="flex">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  className="flex-1 px-3.5 py-2.5 text-xs rounded-l-lg bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="px-4 py-2.5 bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-bold text-xs rounded-r-lg transition whitespace-nowrap cursor-pointer"
                 >
-                  {rawPhone}
-                </a>
+                  Subscribe
+                </button>
               </div>
-            </div>
-          </div>
 
-          {/* Quick Links */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-              Shop & Explore
-            </h4>
-            <ul className="space-y-2 text-xs text-slate-600">
-              <li>
-                <Link href="/" className="hover:text-blue-600 transition">Home</Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-blue-600 transition">All Products</Link>
-              </li>
-              <li>
-                <Link href="/products?deals=true" className="hover:text-blue-600 transition">Special Deals</Link>
-              </li>
-              <li>
-                <Link href="/products?category=power-banks" className="hover:text-blue-600 transition">Power Banks</Link>
-              </li>
-              <li>
-                <Link href="/products?category=wireless-earbuds" className="hover:text-blue-600 transition">Wireless Earbuds</Link>
-              </li>
-              <li>
-                <Link href="/products?category=chargers" className="hover:text-blue-600 transition">Fast Chargers</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Customer Care */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-              Customer Care
-            </h4>
-            <ul className="space-y-2 text-xs text-slate-600">
-              <li>
-                <Link href="/shipping-policy" className="hover:text-blue-600 transition">Shipping & Delivery</Link>
-              </li>
-              <li>
-                <Link href="/return-policy" className="hover:text-blue-600 transition">Return & Warranty Policy</Link>
-              </li>
-              <li>
-                <Link href="/privacy-policy" className="hover:text-blue-600 transition">Privacy Policy</Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-blue-600 transition">Terms of Service</Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-blue-600 transition">Help & Contact</Link>
-              </li>
-              <li>
-                <Link href="/admin/login" className="hover:text-blue-600 transition text-slate-400">Staff Portal</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Trust & WhatsApp */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-              Order Assistance
-            </h4>
-            <p className="text-xs text-slate-500">
-              Need help choosing the right charger or cable for your phone? Chat directly with our product specialist on WhatsApp.
-            </p>
-            <a
-              href={`https://wa.me/${cleanPhone}?text=Hello%20AS%20Store!%20I%20need%20help%20with%20a%20product.`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-sm"
-            >
-              <PhoneCall className="w-3.5 h-3.5" />
-              <span>Chat on WhatsApp</span>
-            </a>
+              {subscribed && (
+                <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-semibold pt-1">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Subscribed! Check your inbox for exclusive vouchers.</span>
+                </div>
+              )}
+            </form>
           </div>
         </div>
-      </div>
 
-      {/* Copyright Bar */}
-      <div className="border-t border-slate-200 py-6 bg-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} AS Store. All rights reserved. Independent E-Commerce Brand.</p>
-          <div className="flex items-center gap-4">
-            <span className="text-[11px] text-slate-500 font-medium">Cash on Delivery • JazzCash • EasyPaisa • Bank Transfer</span>
+        {/* Bottom Payment Badges Row (Mockup exact) */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-white border border-slate-700">
+              VISA
+            </span>
+            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-white border border-slate-700">
+              Mastercard
+            </span>
+            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-[#EAB308] border border-slate-700">
+              JazzCash
+            </span>
+            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-emerald-400 border border-slate-700">
+              EasyPaisa
+            </span>
+            <span className="px-2.5 py-1 rounded bg-slate-800 text-[11px] font-bold text-blue-400 border border-slate-700">
+              COD
+            </span>
+          </div>
+
+          <div className="font-semibold text-slate-300 flex items-center gap-2">
+            <span>Cash on Delivery Available</span>
           </div>
         </div>
       </div>

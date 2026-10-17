@@ -36,7 +36,7 @@ export default function AdminSettingsPage() {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        setMessage({ text: 'Settings saved successfully!', type: 'success' });
+        setMessage({ text: 'Settings saved successfully in Supabase!', type: 'success' });
       } else {
         setMessage({ text: data.error || 'Failed to save settings', type: 'error' });
       }
@@ -50,26 +50,26 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-black text-white">
+        <h1 className="font-display text-2xl sm:text-3xl font-black text-slate-900">
           Store Configuration
         </h1>
-        <p className="text-xs text-slate-400 mt-1">
-          Configure business details, shipping fees, discount tiers, and support hotlines.
+        <p className="text-xs text-slate-500 mt-1">
+          Configure business details, shipping fees, discount tiers, and support hotlines for <strong>AS Store</strong>.
         </p>
       </div>
 
       {message && (
         <div
-          className={`flex items-center gap-2 p-4 rounded-2xl border text-xs ${
+          className={`flex items-center gap-2 p-4 rounded-2xl border text-xs font-semibold ${
             message.type === 'success'
-              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
-              : 'bg-rose-500/10 border-rose-500/30 text-rose-400'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : 'bg-rose-50 border-rose-200 text-rose-800'
           }`}
         >
           {message.type === 'success' ? (
-            <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
           ) : (
-            <AlertCircle className="w-4 h-4 shrink-0" />
+            <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
           )}
           <span>{message.text}</span>
         </div>
@@ -82,42 +82,42 @@ export default function AdminSettingsPage() {
       ) : (
         <form onSubmit={handleSave} className="space-y-6">
           {/* Brand Information */}
-          <div className="p-6 rounded-3xl bg-[#0E1526] border border-slate-800 space-y-4">
-            <h2 className="font-bold text-sm text-white">Brand & Identity</h2>
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+            <h2 className="font-bold text-sm text-slate-900">Brand & Support Details</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Business Name
                 </label>
                 <input
                   type="text"
                   value={settings.business_name || 'AS Store'}
                   onChange={(e) => setSettings({ ...settings, business_name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 font-semibold"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   WhatsApp Support Helpline
                 </label>
                 <input
                   type="text"
-                  value={settings.whatsapp_number || ''}
+                  value={settings.whatsapp_number || '+92 320 1042634'}
                   onChange={(e) => setSettings({ ...settings, whatsapp_number: e.target.value })}
                   placeholder="+92 320 1042634"
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 font-bold font-mono text-emerald-700"
                 />
               </div>
             </div>
           </div>
 
           {/* Delivery & Shipping */}
-          <div className="p-6 rounded-3xl bg-[#0E1526] border border-slate-800 space-y-4">
-            <h2 className="font-bold text-sm text-white">Delivery Charges & Thresholds</h2>
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+            <h2 className="font-bold text-sm text-slate-900">Delivery Charges & Thresholds</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Standard Delivery Charges (PKR)
                 </label>
                 <input
@@ -126,12 +126,12 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, delivery_charges: Number(e.target.value) })
                   }
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 font-bold"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Free Shipping Minimum Order (PKR)
                 </label>
                 <input
@@ -140,18 +140,18 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, free_shipping_threshold: Number(e.target.value) })
                   }
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 font-bold"
                 />
               </div>
             </div>
           </div>
 
           {/* Bundle Tier Discounts */}
-          <div className="p-6 rounded-3xl bg-[#0E1526] border border-slate-800 space-y-4">
-            <h2 className="font-bold text-sm text-white">Automatic Volume Discounts</h2>
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+            <h2 className="font-bold text-sm text-slate-900">Automatic Volume Discounts</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Tier 1 Threshold (PKR)
                 </label>
                 <input
@@ -160,11 +160,11 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, bundle_tier1_threshold: Number(e.target.value) })
                   }
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Tier 1 Discount (%)
                 </label>
                 <input
@@ -173,12 +173,12 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, bundle_tier1_percent: Number(e.target.value) })
                   }
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 font-bold"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Tier 2 Threshold (PKR)
                 </label>
                 <input
@@ -187,11 +187,11 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, bundle_tier2_threshold: Number(e.target.value) })
                   }
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Tier 2 Discount (%)
                 </label>
                 <input
@@ -200,7 +200,7 @@ export default function AdminSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, bundle_tier2_percent: Number(e.target.value) })
                   }
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 font-bold"
                 />
               </div>
             </div>
@@ -209,10 +209,10 @@ export default function AdminSettingsPage() {
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition shadow-glow disabled:opacity-50"
+            className="flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-sm disabled:opacity-50 active:scale-95"
           >
             <Save className="w-4 h-4" />
-            <span>{saving ? 'Saving...' : 'Save Configuration'}</span>
+            <span>{saving ? 'Saving to Database...' : 'Save Configuration'}</span>
           </button>
         </form>
       )}

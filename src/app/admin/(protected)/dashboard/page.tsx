@@ -8,6 +8,8 @@ import {
   CheckCircle2,
   ArrowRight,
   Eye,
+  Printer,
+  Tag,
 } from 'lucide-react';
 import { createServiceClient } from '@/lib/supabase/server';
 import { formatPrice } from '@/lib/utils';
@@ -19,7 +21,7 @@ export default async function AdminDashboardPage() {
   const supabase = createServiceClient();
 
   const [ordersRes, productsRes, couponsRes] = await Promise.all([
-    supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(10),
+    supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(8),
     supabase.from('products').select('id, active', { count: 'exact' }),
     supabase.from('coupons').select('id', { count: 'exact' }),
   ]);
@@ -39,158 +41,158 @@ export default async function AdminDashboardPage() {
     <div className="space-y-8 max-w-7xl mx-auto">
       {/* Header */}
       <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-black text-white">
+        <h1 className="font-display text-2xl sm:text-3xl font-black text-slate-900">
           Store Operations Dashboard
         </h1>
-        <p className="text-xs text-slate-400 mt-1">
-          Real-time summary of sales, orders, and catalogue status for <strong>AS Store</strong>.
+        <p className="text-xs text-slate-500 mt-1">
+          Live overview of sales, incoming customer dispatches, and catalogue inventory for <strong>AS Store</strong>.
         </p>
       </div>
 
       {/* Metrics Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div className="p-5 rounded-2xl bg-[#0E1526] border border-slate-800 space-y-3">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-semibold">Total Revenue (Recent)</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+            <span className="text-xs text-slate-500 font-bold uppercase">Recorded Revenue</span>
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
               <TrendingUp className="w-4 h-4" />
             </div>
           </div>
-          <div className="font-display text-2xl font-black text-white">
+          <div className="font-display text-2xl font-black text-slate-900">
             {formatPrice(totalRevenue)}
           </div>
-          <span className="text-[11px] text-slate-500">From recent recorded orders</span>
+          <span className="text-[11px] text-slate-400 block">From recent verified sales</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#0E1526] border border-slate-800 space-y-3">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-semibold">Pending Verification</span>
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
+            <span className="text-xs text-slate-500 font-bold uppercase">Pending Verification</span>
+            <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
               <Clock className="w-4 h-4" />
             </div>
           </div>
-          <div className="font-display text-2xl font-black text-amber-400">
+          <div className="font-display text-2xl font-black text-amber-600">
             {pendingOrders}
           </div>
-          <Link href="/admin/orders?status=pending" className="text-[11px] text-blue-400 hover:underline">
+          <Link href="/admin/orders" className="text-[11px] font-bold text-blue-600 hover:text-blue-700">
             Review pending orders →
           </Link>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#0E1526] border border-slate-800 space-y-3">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-semibold">Active Products</span>
-            <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+            <span className="text-xs text-slate-500 font-bold uppercase">Active Products</span>
+            <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
               <Package className="w-4 h-4" />
             </div>
           </div>
-          <div className="font-display text-2xl font-black text-white">
+          <div className="font-display text-2xl font-black text-slate-900">
             {activeProducts} / {totalProducts}
           </div>
-          <Link href="/admin/products" className="text-[11px] text-blue-400 hover:underline">
-            Manage inventory →
+          <Link href="/admin/products" className="text-[11px] font-bold text-blue-600 hover:text-blue-700">
+            Manage product catalogue →
           </Link>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#0E1526] border border-slate-800 space-y-3">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-semibold">Active Coupons</span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
-              <ShoppingBag className="w-4 h-4" />
+            <span className="text-xs text-slate-500 font-bold uppercase">Active Coupons</span>
+            <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+              <Tag className="w-4 h-4" />
             </div>
           </div>
-          <div className="font-display text-2xl font-black text-white">
-            {totalCoupons}
+          <div className="font-display text-2xl font-black text-slate-900">
+            {totalCoupons} Codes
           </div>
-          <Link href="/admin/coupons" className="text-[11px] text-blue-400 hover:underline">
-            View promo codes →
+          <Link href="/admin/coupons" className="text-[11px] font-bold text-blue-600 hover:text-blue-700">
+            View promo campaigns →
           </Link>
         </div>
       </div>
 
-      {/* Recent Orders Table */}
-      <div className="rounded-3xl bg-[#0E1526] border border-slate-800 overflow-hidden">
-        <div className="p-5 sm:p-6 flex items-center justify-between border-b border-slate-800">
-          <div>
-            <h2 className="font-display font-bold text-base text-white">Recent Orders</h2>
-            <p className="text-xs text-slate-400">Latest customer checkouts awaiting dispatch</p>
-          </div>
+      {/* Recent Orders Section */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-display font-black text-base text-slate-900">
+            Recent Customer Orders
+          </h2>
           <Link
             href="/admin/orders"
-            className="flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-blue-300"
+            className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 transition"
           >
             <span>View All Orders</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {recentOrders.length === 0 ? (
-          <div className="p-12 text-center text-slate-500 text-xs">
-            No orders recorded yet. Place a test checkout to see orders live here!
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/60 text-slate-400 border-b border-slate-800 font-bold">
-                <tr>
-                  <th className="p-4">Order Ref</th>
-                  <th className="p-4">Customer</th>
-                  <th className="p-4">City</th>
-                  <th className="p-4">Amount</th>
-                  <th className="p-4">Status</th>
-                  <th className="p-4">Date</th>
-                  <th className="p-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/60">
-                {recentOrders.map((order) => {
-                  const displayId = order.order_number || `AS-${order.id.slice(0, 8).toUpperCase()}`;
-                  return (
-                    <tr key={order.id} className="hover:bg-slate-900/40 transition">
-                      <td className="p-4 font-mono font-bold text-white">
-                        {displayId}
+        <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-xs">
+          {recentOrders.length === 0 ? (
+            <div className="p-12 text-center text-slate-400 text-xs">
+              No orders have been recorded yet.
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-50 text-slate-600 border-b border-slate-200 font-bold uppercase tracking-wider text-[11px]">
+                  <tr>
+                    <th className="p-4">Order ID</th>
+                    <th className="p-4">Customer</th>
+                    <th className="p-4">Destination</th>
+                    <th className="p-4">Total Amount</th>
+                    <th className="p-4">Status</th>
+                    <th className="p-4 text-right">Dispatch Slip</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {recentOrders.map((ord) => (
+                    <tr key={ord.id} className="hover:bg-slate-50/70 transition">
+                      <td className="p-4 font-mono font-bold text-slate-900">
+                        {ord.order_number || ord.id.slice(0, 8)}
                       </td>
                       <td className="p-4">
-                        <div className="font-bold text-white">{order.customer_name}</div>
-                        <span className="text-[11px] text-slate-400 font-mono">{order.phone}</span>
+                        <div className="font-bold text-slate-900">{ord.customer_name}</div>
+                        <span className="text-[11px] text-slate-400 font-mono">{ord.phone}</span>
                       </td>
-                      <td className="p-4 text-slate-300">{order.city}</td>
-                      <td className="p-4 font-bold text-blue-400 font-display">
-                        {formatPrice(order.total_amount)}
+                      <td className="p-4 text-slate-600 font-medium">
+                        {ord.city}
+                      </td>
+                      <td className="p-4 font-bold font-display text-slate-900">
+                        {formatPrice(ord.total_amount)}
                       </td>
                       <td className="p-4">
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          order.status === 'approved'
-                            ? 'bg-emerald-500/20 text-emerald-400'
-                            : order.status === 'rejected'
-                            ? 'bg-rose-500/20 text-rose-400'
-                            : order.status === 'shipped'
-                            ? 'bg-blue-500/20 text-blue-400'
-                            : 'bg-amber-500/20 text-amber-400'
-                        }`}>
-                          {order.status.toUpperCase()}
+                        <span
+                          className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                            ord.status === 'approved'
+                              ? 'bg-emerald-100 text-emerald-800'
+                              : ord.status === 'rejected'
+                              ? 'bg-rose-100 text-rose-800'
+                              : ord.status === 'shipped'
+                              ? 'bg-blue-100 text-blue-800'
+                              : ord.status === 'delivered'
+                              ? 'bg-teal-100 text-teal-800'
+                              : 'bg-amber-100 text-amber-800'
+                          }`}
+                        >
+                          {ord.status.toUpperCase()}
                         </span>
-                      </td>
-                      <td className="p-4 text-slate-400 text-[11px]">
-                        {new Date(order.created_at).toLocaleDateString()}
                       </td>
                       <td className="p-4 text-right">
                         <Link
-                          href={`/invoice/${order.id}`}
+                          href={`/admin/orders/${ord.id}/slip`}
                           target="_blank"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-black text-white font-bold text-[11px] transition shadow-xs"
                         >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>Invoice</span>
+                          <Printer className="w-3.5 h-3.5" />
+                          <span>Slip</span>
                         </Link>
                       </td>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
