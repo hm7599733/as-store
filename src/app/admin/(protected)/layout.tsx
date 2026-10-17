@@ -20,6 +20,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const router = useRouter();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  React.useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        router.replace('/admin/login');
+      } else {
+        setAuthLoading(false);
+      }
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        router.replace('/admin/login');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [router]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -33,6 +54,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: 'Coupons', href: '/admin/coupons', icon: Tag },
     { label: 'Settings', href: '/admin/settings', icon: Settings },
   ];
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-[#07090E] flex items-center justify-center text-slate-400 text-xs">
+        <div className="flex items-center gap-3">
+          <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <span>Verifying Admin Authorization...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#07090E] text-slate-100 flex flex-col md:flex-row">

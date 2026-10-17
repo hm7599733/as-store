@@ -139,8 +139,8 @@ export default function Navbar({
               <Search className="w-5 h-5" />
             </button>
 
-            {/* Customer Account / Sign In */}
-            {user ? (
+            {/* Customer Account (if logged in) */}
+            {user && (
               <Link
                 href="/account"
                 className="flex items-center gap-2 py-1.5 px-2.5 sm:px-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-800 text-xs font-semibold transition"
@@ -152,15 +152,6 @@ export default function Navbar({
                 <span className="hidden lg:inline max-w-[80px] truncate">
                   {profile?.full_name?.split(' ')[0] || 'Account'}
                 </span>
-              </Link>
-            ) : (
-              <Link
-                href="/login"
-                className="flex items-center gap-1.5 py-1.5 px-2.5 sm:px-3 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-semibold transition"
-                title="Customer Sign In"
-              >
-                <UserIcon className="w-4 h-4 text-blue-600" />
-                <span className="hidden sm:inline">Sign In</span>
               </Link>
             )}
 
@@ -230,9 +221,9 @@ export default function Navbar({
                 All Products
               </Link>
 
-              {/* Customer Account Mobile */}
-              <div className="py-2 border-y border-slate-200">
-                {user ? (
+              {/* Customer Account Mobile (if logged in) */}
+              {user && (
+                <div className="py-2 border-y border-slate-200">
                   <Link
                     href="/account"
                     onClick={() => setMobileMenuOpen(false)}
@@ -246,17 +237,8 @@ export default function Navbar({
                       <span className="block text-[10px] text-slate-500">View orders & profile</span>
                     </div>
                   </Link>
-                ) : (
-                  <Link
-                    href="/login"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-blue-600 text-white text-xs font-semibold shadow-sm"
-                  >
-                    <UserIcon className="w-4 h-4" />
-                    <span>Customer Sign In / Register</span>
-                  </Link>
-                )}
-              </div>
+                </div>
+              )}
 
               <div className="pt-2">
                 <span className="text-xs uppercase tracking-wider text-slate-400 font-bold block mb-2">
@@ -304,6 +286,13 @@ export default function Navbar({
                   className="block text-xs text-slate-600 hover:text-slate-900 py-1"
                 >
                   Returns & Warranty
+                </Link>
+                <Link
+                  href="/admin/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block text-xs text-slate-400 hover:text-blue-600 py-1"
+                >
+                  Store Admin Login
                 </Link>
               </div>
 

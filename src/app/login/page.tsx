@@ -385,13 +385,19 @@ function LoginFormContent() {
           </div>
         </div>
 
-        {/* Back to Store */}
-        <div className="text-center mt-6">
+        {/* Back to Store & Admin link */}
+        <div className="flex items-center justify-between mt-6 text-xs font-semibold">
           <Link
             href="/"
-            className="text-xs font-semibold text-blue-500 hover:text-blue-400 transition"
+            className="text-blue-600 hover:text-blue-700 transition"
           >
             ← Return to AS Store Home
+          </Link>
+          <Link
+            href="/admin/login"
+            className="text-slate-500 hover:text-slate-800 transition"
+          >
+            Store Admin Login →
           </Link>
         </div>
       </div>
