@@ -208,20 +208,17 @@ export default function Footer({ settings }: { settings: Settings | null }) {
         {/* Bottom Payment Badges Row */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-white border border-slate-800">
-              VISA
-            </span>
-            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-white border border-slate-800">
-              Mastercard
-            </span>
-            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-[#EAB308] border border-slate-800">
+            <span className="px-3 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-[#EAB308] border border-slate-800 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#EAB308]" />
               JazzCash
             </span>
-            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-emerald-400 border border-slate-800">
+            <span className="px-3 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-emerald-400 border border-slate-800 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
               EasyPaisa
             </span>
-            <span className="px-2.5 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-cyan-400 border border-slate-800">
-              COD
+            <span className="px-3 py-1 rounded-md bg-[#0B152E] text-[11px] font-bold text-cyan-400 border border-slate-800 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              Cash on Delivery (COD)
             </span>
           </div>
 

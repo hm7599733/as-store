@@ -247,30 +247,39 @@ export default function ProductsClient() {
       )}
 
       {/* Header and Add Button */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
-          <h1 className="font-display text-2xl sm:text-3xl font-black text-slate-900">
-            Product Management
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+              Catalogue & Inventory
+            </span>
+            <span className="text-slate-300">•</span>
+            <span className="text-[10px] font-bold text-cyan-600 bg-cyan-50 px-2 py-0.5 rounded-full">
+              Mobile Accessories Only
+            </span>
+          </div>
+          <h1 className="font-display text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Product Catalogue & Stock
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
-            Add new products, modify pricing, manage stock availability, and update images for <strong>AS Store</strong>.
+          <p className="text-xs text-slate-500 mt-0.5">
+            Add new mobile accessories, edit pricing, manage stock status, and upload high-res images for <strong>AS Store</strong>.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <button
             onClick={fetchProducts}
-            className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition shadow-xs"
+            className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition shadow-2xs active:scale-95"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 text-cyan-600 ${loading ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
           </button>
 
           <button
             onClick={openCreateModal}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm active:scale-95"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0B132B] hover:bg-slate-900 text-white text-xs font-bold transition shadow-sm active:scale-95"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 text-[#06B6D4]" />
             <span>Add New Product</span>
           </button>
         </div>
@@ -731,13 +740,13 @@ export default function ProductsClient() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition disabled:opacity-50"
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#0B132B] hover:bg-slate-900 text-white text-xs font-bold shadow-sm transition disabled:opacity-50 active:scale-95"
                 >
                   {saving ? (
                     <span>Saving Product...</span>
                   ) : (
                     <>
-                      <Check className="w-4 h-4" />
+                      <Check className="w-4 h-4 text-[#06B6D4]" />
                       <span>{modalMode === 'create' ? 'Create Product' : 'Save Changes'}</span>
                     </>
                   )}
