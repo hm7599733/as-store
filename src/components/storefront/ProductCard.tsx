@@ -136,6 +136,15 @@ export default function ProductCard({
           )}
         </div>
 
+        {/* Wholesale Tag */}
+        {product.wholesale_price && product.wholesale_price > 0 && (
+          <div className="flex items-center gap-1">
+            <span className="text-[10px] font-bold text-cyan-700 bg-cyan-50 border border-cyan-200/60 px-1.5 py-0.5 rounded">
+              Wholesale: {formatPrice(product.wholesale_price)}
+            </span>
+          </div>
+        )}
+
         {/* Star Rating with Cyan Star */}
         <div className="flex items-center gap-1 text-[11px] text-slate-600 font-semibold">
           <Star className="w-3.5 h-3.5 fill-[#06B6D4] text-[#06B6D4]" />

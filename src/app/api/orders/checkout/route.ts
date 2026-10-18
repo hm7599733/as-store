@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     const productIds = Array.from(new Set(items.map((i) => i.product_id)));
     const { data: dbProducts, error: prodErr } = await supabase
       .from('products')
-      .select('id, name, price, purchase_price, stock_status, active, bundle_offers, free_delivery, product_images(image_url, is_primary)')
+      .select('id, name, price, purchase_price, wholesale_price, stock_status, active, bundle_offers, free_delivery, product_images(image_url, is_primary)')
       .in('id', productIds);
 
     if (prodErr || !dbProducts || dbProducts.length === 0) {

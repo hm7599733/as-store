@@ -17,6 +17,7 @@ export async function PUT(
       short_description,
       price,
       old_price,
+      wholesale_price,
       category_id,
       stock_status,
       featured,
@@ -35,6 +36,7 @@ export async function PUT(
     if (short_description !== undefined) updatePayload.short_description = short_description;
     if (price !== undefined) updatePayload.price = Number(price);
     if (old_price !== undefined) updatePayload.old_price = old_price ? Number(old_price) : null;
+    if (wholesale_price !== undefined) updatePayload.wholesale_price = wholesale_price ? Number(wholesale_price) : null;
     if (category_id !== undefined) updatePayload.category_id = category_id || null;
     if (stock_status !== undefined) updatePayload.stock_status = stock_status;
     if (featured !== undefined) updatePayload.featured = Boolean(featured);

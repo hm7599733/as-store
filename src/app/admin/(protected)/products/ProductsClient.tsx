@@ -28,6 +28,7 @@ interface ProductFormData {
   category_id: string;
   price: string;
   old_price: string;
+  wholesale_price: string;
   stock_status: StockStatus;
   primary_image: string;
   additional_images: string;
@@ -43,6 +44,7 @@ const initialFormData: ProductFormData = {
   category_id: '',
   price: '',
   old_price: '',
+  wholesale_price: '',
   stock_status: 'in_stock',
   primary_image: '',
   additional_images: '',
@@ -117,6 +119,7 @@ export default function ProductsClient() {
       category_id: product.category_id || '',
       price: product.price ? product.price.toString() : '',
       old_price: product.old_price ? product.old_price.toString() : '',
+      wholesale_price: product.wholesale_price ? product.wholesale_price.toString() : '',
       stock_status: product.stock_status || 'in_stock',
       primary_image: primaryImg,
       additional_images: otherImgs,
@@ -157,6 +160,7 @@ export default function ProductsClient() {
       category_id: formData.category_id || null,
       price: Number(formData.price),
       old_price: formData.old_price ? Number(formData.old_price) : null,
+      wholesale_price: formData.wholesale_price ? Number(formData.wholesale_price) : null,
       stock_status: formData.stock_status,
       short_description: formData.short_description.trim(),
       description: formData.description.trim(),
@@ -424,9 +428,16 @@ export default function ProductsClient() {
                           {formatPrice(prod.price)}
                         </div>
                         {prod.old_price && prod.old_price > prod.price && (
-                          <span className="text-[10px] text-slate-400 line-through">
+                          <span className="text-[10px] text-slate-400 line-through block">
                             {formatPrice(prod.old_price)}
                           </span>
+                        )}
+                        {prod.wholesale_price && prod.wholesale_price > 0 && (
+                          <div className="mt-1">
+                            <span className="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold bg-cyan-50 text-cyan-800 border border-cyan-200">
+                              WS: {formatPrice(prod.wholesale_price)}
+                            </span>
+                          </div>
                         )}
                       </td>
 
@@ -581,7 +592,7 @@ export default function ProductsClient() {
               </div>
 
               {/* Pricing & Stock Status */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
                     Selling Price (PKR) *
@@ -593,8 +604,24 @@ export default function ProductsClient() {
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                     placeholder="2500"
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 font-bold"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-cyan-600 font-bold"
                   />
+                  <span className="text-[10px] text-slate-400 mt-0.5 block">Customer retail price</span>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Wholesale Price (PKR)
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={formData.wholesale_price}
+                    onChange={(e) => setFormData({ ...formData, wholesale_price: e.target.value })}
+                    placeholder="1800"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-cyan-600 font-bold text-cyan-700"
+                  />
+                  <span className="text-[10px] text-cyan-600 mt-0.5 block font-semibold">Bulk / wholesale rate</span>
                 </div>
 
                 <div>
@@ -607,8 +634,9 @@ export default function ProductsClient() {
                     value={formData.old_price}
                     onChange={(e) => setFormData({ ...formData, old_price: e.target.value })}
                     placeholder="3200"
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-cyan-600"
                   />
+                  <span className="text-[10px] text-slate-400 mt-0.5 block">Strikethrough discount</span>
                 </div>
 
                 <div>
@@ -620,12 +648,13 @@ export default function ProductsClient() {
                     onChange={(e) =>
                       setFormData({ ...formData, stock_status: e.target.value as StockStatus })
                     }
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 font-semibold"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:border-cyan-600 font-semibold"
                   >
                     <option value="in_stock">In Stock</option>
                     <option value="out_of_stock">Out of Stock</option>
                     <option value="low_stock">Low Stock</option>
                   </select>
+                  <span className="text-[10px] text-slate-400 mt-0.5 block">Live inventory badge</span>
                 </div>
               </div>
 

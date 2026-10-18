@@ -3,10 +3,10 @@ import type { Category, Product, Settings } from '@/types/database';
 import { unstable_cache } from 'next/cache';
 
 const PRODUCT_SELECT =
-  'id, name, slug, description, short_description, specifications, key_features, bundle_offers, price, old_price, discount, category_id, sort_order, stock_status, featured, best_seller, new_arrival, free_delivery, active, created_at, updated_at, sku, category:categories(*), product_images(*), product_variants(*)';
+  'id, name, slug, description, short_description, specifications, key_features, bundle_offers, price, old_price, wholesale_price, discount, category_id, sort_order, stock_status, featured, best_seller, new_arrival, free_delivery, active, created_at, updated_at, sku, category:categories(*), product_images(*), product_variants(*)';
 
 const FALLBACK_SELECT =
-  'id, name, slug, description, short_description, specifications, price, old_price, discount, category_id, stock_status, featured, best_seller, new_arrival, free_delivery, active, created_at, updated_at, category:categories(*), product_images(*)';
+  'id, name, slug, description, short_description, specifications, price, old_price, wholesale_price, discount, category_id, stock_status, featured, best_seller, new_arrival, free_delivery, active, created_at, updated_at, category:categories(*), product_images(*)';
 
 export const getAllActiveProducts = unstable_cache(
   async (limit = 100): Promise<Product[]> => {

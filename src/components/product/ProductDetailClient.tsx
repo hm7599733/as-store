@@ -230,6 +230,17 @@ export default function ProductDetailClient({
                 You save {formatPrice(savingsAmount)} ({discountPercent}% off regular price)
               </p>
             )}
+            {product.wholesale_price && product.wholesale_price > 0 && (
+              <div className="mt-3 pt-2.5 border-t border-slate-200/80 dark:border-slate-800/80 flex items-center justify-between text-xs">
+                <span className="text-slate-500 font-semibold flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                  Wholesale / Bulk Rate:
+                </span>
+                <span className="font-bold text-cyan-500 font-display text-sm">
+                  {formatPrice(product.wholesale_price)} <span className="text-[10px] text-slate-400 font-normal">/ unit</span>
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Color / Variant Selection */}
