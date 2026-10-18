@@ -20,6 +20,7 @@ import {
   Sparkles,
   ChevronRight,
   TrendingUp,
+  MessageCircle,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
 import AdminNotificationBell from '@/components/admin/AdminNotificationBell';
@@ -61,6 +62,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       items: [
         { label: 'Overview', href: '/admin/dashboard', icon: LayoutDashboard },
         { label: 'Orders & Fulfillment', href: '/admin/orders', icon: ShoppingBag },
+        { label: 'WhatsApp Center', href: '/admin/whatsapp', icon: MessageCircle },
       ],
     },
     {
@@ -81,6 +83,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const currentSectionName = () => {
     const segment = pathname.split('/')[2];
     if (segment === 'orders') return 'Orders & Fulfillment';
+    if (segment === 'whatsapp') return 'WhatsApp Outreach Center';
     if (segment === 'products') return 'Products & Inventory';
     if (segment === 'coupons') return 'Coupons & Vouchers';
     if (segment === 'settings') return 'Settings & Operations';

@@ -20,6 +20,7 @@ import {
   BarChart3,
   CircleDot,
   Check,
+  MessageCircle,
 } from 'lucide-react';
 import { createServiceClient } from '@/lib/supabase/server';
 import { formatPrice } from '@/lib/utils';
@@ -103,6 +104,13 @@ export default async function AdminDashboardPage() {
           >
             <Truck className="w-4 h-4 text-cyan-600" />
             <span>Courier Dispatch ({pendingOrders.length} Pending)</span>
+          </Link>
+          <Link
+            href="/admin/whatsapp"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs transition shadow-2xs active:scale-95"
+          >
+            <MessageCircle className="w-4 h-4 fill-white text-white" />
+            <span>WhatsApp Outreach</span>
           </Link>
           <Link
             href="/"

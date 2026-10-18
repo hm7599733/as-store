@@ -20,10 +20,12 @@ import {
   Calendar,
   ChevronRight,
   Filter,
+  MessageCircle,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
 import { formatPrice } from '@/lib/utils';
 import type { Order, OrderStatus } from '@/types/database';
+import WhatsAppOutreachModal from '@/components/admin/WhatsAppOutreachModal';
 
 function getInitials(name: string): string {
   if (!name) return 'C';
@@ -38,6 +40,8 @@ export default function AdminOrdersPage() {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [whatsAppOrder, setWhatsAppOrder] = useState<Order | null>(null);
+  const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -318,17 +322,19 @@ export default function AdminOrdersPage() {
                           </div>
                           <div>
                             <div className="font-bold text-slate-900">{order.customer_name}</div>
-                            {cleanPhone ? (
-                              <a
-                                href={`https://wa.me/${cleanPhone}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[11px] text-emerald-600 hover:underline flex items-center gap-1 font-mono mt-0.5"
-                                title="Chat on WhatsApp"
+                            {order.phone ? (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setWhatsAppOrder(order);
+                                  setIsWhatsAppModalOpen(true);
+                                }}
+                                className="text-[11px] text-emerald-600 hover:text-emerald-700 hover:underline flex items-center gap-1 font-mono mt-0.5 text-left"
+                                title="Open WhatsApp Outreach Modal"
                               >
-                                <PhoneCall className="w-3 h-3" />
+                                <MessageCircle className="w-3 h-3 text-emerald-600 fill-emerald-100" />
                                 <span>{order.phone}</span>
-                              </a>
+                              </button>
                             ) : (
                               <span className="text-[11px] text-slate-400 font-mono">{order.phone}</span>
                             )}
@@ -401,6 +407,20 @@ export default function AdminOrdersPage() {
                       {/* Actions & Print Slip */}
                       <td className="p-4 text-right whitespace-nowrap">
                         <div className="flex items-center justify-end gap-1.5">
+                          {/* WhatsApp Outreach Modal Launcher */}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setWhatsAppOrder(order);
+                              setIsWhatsAppModalOpen(true);
+                            }}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-[11px] transition shadow-2xs hover:scale-105 active:scale-95"
+                            title="Open WhatsApp Outreach Hub"
+                          >
+                            <MessageCircle className="w-3.5 h-3.5 fill-white text-white" />
+                            <span>WhatsApp</span>
+                          </button>
+
                           {/* Printing Courier Slip Button */}
                           <Link
                             href={`/admin/orders/${order.id}/slip`}
@@ -471,6 +491,17 @@ export default function AdminOrdersPage() {
           </div>
         )}
       </div>
+
+      {/* WhatsApp Outreach Modal */}
+      <WhatsAppOutreachModal
+        order={whatsAppOrder}
+        isOpen={isWhatsAppModalOpen}
+        onClose={() => {
+          setIsWhatsAppModalOpen(false);
+          setWhatsAppOrder(null);
+        }}
+        onOrderUpdated={fetchOrders}
+      />
     </div>
   );
 }
