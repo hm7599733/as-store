@@ -8,23 +8,25 @@ import { AuthProvider } from '@/context/AuthContext';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.asstore.pk'),
   title: {
-    default: 'AS Store | Premium Mobile Accessories & Tech Gadgets',
-    template: '%s | AS Store',
+    default: 'AS Gadgets | Premium Mobile Accessories & Smart Gadgets',
+    template: '%s | AS Gadgets',
   },
   description:
-    'AS Store is Pakistan’s trusted online destination for premium mobile accessories, high-speed GaN chargers, durable power banks, and high-fidelity wireless audio.',
+    'AS Gadgets is Pakistan’s trusted destination for premium mobile accessories, high-speed GaN chargers, 20,000mAh power banks, and wireless earbuds with cash on delivery.',
   keywords: [
+    'AS Gadgets',
     'AS Store',
     'mobile accessories Pakistan',
+    'smart gadgets Pakistan',
     'power banks Pakistan',
     'fast chargers',
     'wireless earbuds',
     'USB-C cables',
     'cash on delivery',
   ],
-  authors: [{ name: 'AS Store' }],
-  creator: 'AS Store',
-  publisher: 'AS Store',
+  authors: [{ name: 'AS Gadgets' }],
+  creator: 'AS Gadgets',
+  publisher: 'AS Gadgets',
   robots: {
     index: true,
     follow: true,

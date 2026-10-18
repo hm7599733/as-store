@@ -18,6 +18,7 @@ import {
   ShoppingBag,
   Sparkles,
 } from 'lucide-react';
+import AsStoreLogo from '@/components/brand/AsStoreLogo';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/components/theme/ThemeProvider';
 
@@ -122,23 +123,9 @@ function LoginFormContent() {
       <div className="w-full max-w-md relative z-10">
         {/* AS Store Brand Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-3 group">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-400 p-[2px] shadow-glow">
-              <div className="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center font-display font-black text-white text-xl tracking-tighter group-hover:scale-105 transition-transform">
-                AS
-              </div>
-            </div>
-            <div className="text-left">
-              <span className={`font-display font-black text-2xl tracking-tight leading-none block ${
-                isLight ? 'text-slate-900' : 'text-white'
-              }`}>
-                AS STORE
-              </span>
-              <span className="text-xs font-semibold tracking-widest uppercase text-blue-500 font-sans">
-                Customer Portal
-              </span>
-            </div>
-          </Link>
+          <div className="flex justify-center mb-2">
+            <AsStoreLogo variant={isLight ? 'light' : 'dark'} size="xl" />
+          </div>
           <h2 className={`mt-6 text-xl sm:text-2xl font-bold tracking-tight ${
             isLight ? 'text-slate-900' : 'text-white'
           }`}>

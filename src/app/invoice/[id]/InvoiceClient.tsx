@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Printer, ArrowLeft } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 import type { Order } from '@/types/database';
@@ -41,14 +42,20 @@ export default function InvoiceClient({ order }: { order: Order }) {
         {/* Invoice Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800/80 pb-6 gap-4 print:border-slate-300">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-black text-xl shadow-glow print:bg-black">
-              AS
+            <div className="relative h-12 w-20 flex items-center justify-center p-1 rounded-xl bg-[#060C1B] border border-cyan-900/40 print:border print:border-black shrink-0">
+              <Image
+                src="/images/as-store-logo.png"
+                alt="AS Gadgets Logo"
+                width={893}
+                height={507}
+                className="h-full w-auto object-contain"
+              />
             </div>
             <div>
               <h1 className="font-display font-black text-xl tracking-tight leading-none print:text-black">
-                AS STORE
+                AS GADGETS
               </h1>
-              <span className="text-[10px] tracking-widest uppercase font-semibold text-blue-400 print:text-slate-600">
+              <span className="text-[10px] tracking-widest uppercase font-semibold text-cyan-400 print:text-slate-600">
                 Official Order Invoice
               </span>
             </div>

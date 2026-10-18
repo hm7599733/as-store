@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Lock, Mail, ArrowRight, AlertCircle, ShieldCheck } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
 
@@ -48,14 +49,20 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md space-y-6">
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center font-display font-black text-white text-xl mx-auto shadow-md">
-            AS
+          <div className="relative h-14 w-28 mx-auto flex items-center justify-center p-1 rounded-2xl bg-[#060C1B] border border-cyan-900/40 shadow-md">
+            <Image
+              src="/images/as-store-logo.png"
+              alt="AS Gadgets"
+              width={893}
+              height={507}
+              className="h-full w-auto object-contain"
+            />
           </div>
           <h1 className="font-display text-2xl font-black text-slate-900">
-            AS Store Admin Portal
+            AS GADGETS Admin Suite
           </h1>
           <p className="text-xs text-slate-500">
-            Sign in with authorized Supabase credentials to manage orders and inventory.
+            Sign in with authorized credentials to manage orders, stock, and dispatches.
           </p>
         </div>
 

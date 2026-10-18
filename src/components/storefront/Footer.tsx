@@ -108,7 +108,7 @@ export default function Footer({ settings }: { settings: Settings | null }) {
             </div>
 
             <p className="text-[11px] text-slate-500 pt-2">
-              © {new Date().getFullYear()} AS Store Pakistan. All rights reserved.
+              © {new Date().getFullYear()} AS Gadgets Pakistan. All rights reserved.
             </p>
           </div>
 

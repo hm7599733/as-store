@@ -52,18 +52,18 @@ export default function PackingSlipClient({
         {/* Header with Logo and Barcode */}
         <div className="flex items-center justify-between border-b-2 border-slate-900 pb-5">
           <div className="flex items-center gap-3">
-            <div className="relative h-12 w-16 flex items-center justify-center p-1 rounded-xl bg-black print:border print:border-black shrink-0">
+            <div className="relative h-12 w-20 flex items-center justify-center p-1 rounded-xl bg-black print:border print:border-black shrink-0">
               <Image
                 src="/images/as-store-logo.png"
-                alt="AS Store Logo"
-                width={667}
-                height={499}
+                alt="AS Gadgets Logo"
+                width={893}
+                height={507}
                 className="h-full w-auto object-contain"
               />
             </div>
             <div>
               <h1 className="font-display font-black text-2xl tracking-tight text-slate-900 print:text-black leading-none">
-                AS STORE
+                AS GADGETS
               </h1>
               <p className="text-[11px] font-bold tracking-widest uppercase text-blue-600 print:text-black mt-1">
                 Dispatch & Courier Packing Slip

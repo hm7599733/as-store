@@ -103,17 +103,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Mobile Top Header */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[#0B132B] text-white border-b border-slate-800 shadow-2xs">
         <Link href="/admin/dashboard" className="flex items-center gap-2.5">
-          <div className="relative h-9 w-12 flex items-center justify-center">
+          <div className="relative h-9 w-16 flex items-center justify-center">
             <Image
               src="/images/as-store-logo.png"
-              alt="AS Store"
-              width={667}
-              height={499}
+              alt="AS Gadgets"
+              width={893}
+              height={507}
               className="h-full w-auto object-contain"
             />
           </div>
           <div>
-            <span className="font-display font-black text-sm text-white block leading-tight">AS Store</span>
+            <span className="font-display font-black text-sm text-white block leading-tight">AS GADGETS</span>
             <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">Admin Suite</span>
           </div>
         </Link>
@@ -139,22 +139,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="space-y-6">
           {/* Brand Logo Header */}
           <Link href="/admin/dashboard" className="flex items-center gap-3 px-1 group">
-            <div className="relative h-11 w-14 p-1 rounded-xl bg-[#060C1B] border border-cyan-900/40 flex items-center justify-center shadow-xs">
+            <div className="relative h-11 w-16 p-1 rounded-xl bg-[#060C1B] border border-cyan-900/40 flex items-center justify-center shadow-xs">
               <Image
                 src="/images/as-store-logo.png"
-                alt="AS Store"
-                width={667}
-                height={499}
+                alt="AS Gadgets"
+                width={893}
+                height={507}
                 className="h-full w-auto object-contain group-hover:scale-105 transition-transform"
               />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <h2 className="font-display font-black text-sm tracking-tight text-slate-950">AS STORE</h2>
+                <h2 className="font-display font-black text-sm tracking-tight text-slate-950">AS GADGETS</h2>
                 <span className="px-1.5 py-0.2 rounded-md bg-cyan-50 text-cyan-700 border border-cyan-200 text-[9px] font-black uppercase">PRO</span>
               </div>
               <span className="text-[10px] text-slate-400 font-semibold block">
-                Enterprise Commerce
+                Mobile & Smart Tech
               </span>
             </div>
           </Link>
