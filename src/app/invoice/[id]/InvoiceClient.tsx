@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Printer, ArrowLeft } from 'lucide-react';
+import { Printer, ArrowLeft, MessageCircle } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 import type { Order } from '@/types/database';
 
@@ -19,7 +19,7 @@ export default function InvoiceClient({ order }: { order: Order }) {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 p-4 sm:p-8 print:p-0 print:bg-white print:text-black">
       {/* Print Controls (Hidden when printing) */}
-      <div className="max-w-3xl mx-auto mb-6 flex items-center justify-between print:hidden">
+      <div className="max-w-3xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
         <Link
           href="/"
           className="flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition"
@@ -28,13 +28,27 @@ export default function InvoiceClient({ order }: { order: Order }) {
           <span>Back to Store</span>
         </Link>
 
-        <button
-          onClick={handlePrint}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-glow"
-        >
-          <Printer className="w-4 h-4" />
-          <span>Print / Save PDF</span>
-        </button>
+        <div className="flex items-center gap-2.5">
+          <a
+            href={`https://wa.me/923201042634?text=${encodeURIComponent(
+              `Assalam-o-Alaikum AS Gadgets! I am inquiring about Order #${displayId} for ${order.customer_name}. Total: Rs. ${order.total_amount}`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold transition shadow-xs active:scale-95"
+          >
+            <MessageCircle className="w-4 h-4 fill-white text-white" />
+            <span>WhatsApp Support</span>
+          </a>
+
+          <button
+            onClick={handlePrint}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-glow"
+          >
+            <Printer className="w-4 h-4" />
+            <span>Print / Save PDF</span>
+          </button>
+        </div>
       </div>
 
       {/* Invoice Card Container */}

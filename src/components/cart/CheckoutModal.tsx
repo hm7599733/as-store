@@ -12,6 +12,7 @@ import {
   FileText,
   CreditCard,
   Banknote,
+  MessageCircle,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -175,7 +176,7 @@ export default function CheckoutModal() {
                 Order {orderComplete.orderNumber} Placed!
               </h4>
               <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                Thank you for choosing <strong>AS Store</strong>. Tap the button below to send your confirmation on WhatsApp for instant packing and dispatch!
+                Thank you for choosing <strong>AS GADGETS</strong>. Tap the button below to confirm your Cash on Delivery parcel on WhatsApp for instant priority packing and dispatch!
               </p>
             </div>
 
@@ -199,10 +200,10 @@ export default function CheckoutModal() {
                 href={orderComplete.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-all shadow-md"
+                className="flex items-center justify-center gap-2.5 w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-sm transition-all shadow-md hover:shadow-lg active:scale-98"
               >
-                <PhoneCall className="w-4 h-4" />
-                <span>Send Confirmation on WhatsApp</span>
+                <MessageCircle className="w-5 h-5 fill-white text-white" />
+                <span>Confirm Order on WhatsApp</span>
               </a>
 
               <Link

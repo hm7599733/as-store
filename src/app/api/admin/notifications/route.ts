@@ -10,9 +10,9 @@ export async function GET() {
       supabase.from('orders').select('id', { count: 'exact' }).eq('status', 'pending'),
       supabase
         .from('orders')
-        .select('id, order_number, customer_name, total_amount, status, created_at, city')
+        .select('*, order_items(*)')
         .order('created_at', { ascending: false })
-        .limit(6),
+        .limit(8),
     ]);
 
     const pendingCount = pendingRes.count || 0;
