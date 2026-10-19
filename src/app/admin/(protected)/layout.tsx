@@ -32,8 +32,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [authLoading, setAuthLoading] = useState(true);
 
   React.useEffect(() => {
+    const hasLocalAdmin = typeof window !== 'undefined' && localStorage.getItem('as_admin_logged_in') === 'true';
+
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) {
+      if (!session && !hasLocalAdmin) {
         router.replace('/admin/login');
       } else {
         setAuthLoading(false);
@@ -43,7 +45,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
+      const stillLocal = typeof window !== 'undefined' && localStorage.getItem('as_admin_logged_in') === 'true';
+      if (!session && !stillLocal) {
         router.replace('/admin/login');
       }
     });
@@ -52,6 +55,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, [router]);
 
   const handleSignOut = async () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('as_admin_logged_in');
+      document.cookie = 'as_admin_auth=; path=/; max-age=0';
+    }
     await supabase.auth.signOut();
     router.push('/admin/login');
   };
@@ -221,7 +228,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 A
               </div>
               <div className="truncate">
-                <span className="text-[11px] font-bold text-slate-900 block truncate leading-tight">Administrator</span>
+                <span className="text-[11px] font-bold text-slate-900 block truncate leading-tight">Admin (Abdullah)</span>
                 <span className="text-[9px] text-slate-400 block truncate">admin@asstore.pk</span>
               </div>
             </div>
