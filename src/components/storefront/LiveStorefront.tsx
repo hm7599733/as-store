@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -8,6 +8,7 @@ import {
   Filter,
   X,
   Sparkles,
+  Loader2,
 } from 'lucide-react';
 import type { Category, Product, Settings } from '@/types/database';
 import ProductCard from './ProductCard';
@@ -23,12 +24,36 @@ export default function LiveStorefront({
   categories: Category[];
   settings: Settings | null;
 }) {
+  const [productsList, setProductsList] = useState<Product[]>(initialProducts);
+  const [isLoadingRecovery, setIsLoadingRecovery] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Fallback client recovery if initialProducts is empty (e.g. edge cold start on Vercel)
+  useEffect(() => {
+    if (!initialProducts || initialProducts.length === 0) {
+      setIsLoadingRecovery(true);
+      fetch('/api/products')
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.products && data.products.length > 0) {
+            setProductsList(data.products);
+          }
+        })
+        .catch((err) => {
+          console.error('Failed to load products from /api/products:', err);
+        })
+        .finally(() => {
+          setIsLoadingRecovery(false);
+        });
+    } else {
+      setProductsList(initialProducts);
+    }
+  }, [initialProducts]);
+
   // Filter products based on category or search
   const filteredProducts = useMemo(() => {
-    let result = [...initialProducts];
+    let result = [...productsList];
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -36,7 +61,7 @@ export default function LiveStorefront({
         (p) =>
           p.name.toLowerCase().includes(q) ||
           p.description?.toLowerCase().includes(q) ||
-          p.category?.name.toLowerCase().includes(q)
+          p.category?.name?.toLowerCase().includes(q)
       );
     }
 
@@ -46,12 +71,12 @@ export default function LiveStorefront({
         const catSlug = p.category.slug?.toLowerCase();
         const catName = p.category.name?.toLowerCase();
         const sel = selectedCategory.toLowerCase();
-        return catSlug.includes(sel) || catName.includes(sel) || sel.includes(catSlug);
+        return (catSlug && catSlug.includes(sel)) || (catName && catName.includes(sel)) || (catSlug && sel.includes(catSlug));
       });
     }
 
     return result;
-  }, [initialProducts, selectedCategory, searchQuery]);
+  }, [productsList, selectedCategory, searchQuery]);
 
   return (
     <div id="catalogue" className="bg-[#070D1E]">
@@ -107,7 +132,13 @@ export default function LiveStorefront({
           )}
 
           {/* Product Grid: EXACTLY 5 Columns on Desktop (lg:grid-cols-5) */}
-          {filteredProducts.length === 0 ? (
+          {isLoadingRecovery ? (
+            <div className="py-20 text-center flex flex-col items-center justify-center bg-[#0B152E] rounded-3xl border border-slate-800 p-8">
+              <Loader2 className="w-8 h-8 text-[#06B6D4] animate-spin mb-3" />
+              <p className="text-sm font-semibold text-white">Loading AS Gadgets Catalogue...</p>
+              <p className="text-xs text-slate-400 mt-1">Connecting to live inventory</p>
+            </div>
+          ) : filteredProducts.length === 0 ? (
             <div className="py-16 text-center text-slate-400 text-xs bg-[#0B152E] rounded-3xl border border-slate-800 p-8">
               <p className="text-sm font-semibold text-white">No products found in this selection.</p>
               <div className="mt-4">

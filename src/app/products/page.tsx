@@ -8,7 +8,8 @@ import CheckoutModal from '@/components/cart/CheckoutModal';
 import WhatsAppFloatingButton from '@/components/storefront/WhatsAppFloatingButton';
 import { getAllActiveProducts, getActiveCategories, getSettings } from '@/lib/data';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'All Products | AS Store Pakistan',

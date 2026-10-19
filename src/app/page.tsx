@@ -9,7 +9,8 @@ import CheckoutModal from '@/components/cart/CheckoutModal';
 import WhatsAppFloatingButton from '@/components/storefront/WhatsAppFloatingButton';
 import { getSettings, getActiveCategories, getAllActiveProducts } from '@/lib/data';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.asstore.pk';
 
