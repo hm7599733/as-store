@@ -55,6 +55,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, [router]);
 
   const handleSignOut = async () => {
+    try {
+      await fetch('/api/admin/auth/logout', { method: 'POST' });
+    } catch (_) {}
     if (typeof window !== 'undefined') {
       localStorage.removeItem('as_admin_logged_in');
       document.cookie = 'as_admin_auth=; path=/; max-age=0';

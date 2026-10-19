@@ -39,33 +39,45 @@ export default function AdminLoginPage() {
         : `${cleanLower}@asstore.pk`;
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: targetEmail,
-        password: password.trim(),
+      // 1. Authenticate via Server API (supports Vercel env vars & direct credentials)
+      const res = await fetch('/api/admin/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: trimmed,
+          password: password.trim(),
+        }),
       });
 
-      if (error) {
-        // Fallback check if user entered custom credentials
-        if (cleanLower === 'admin' && password.trim() === 'abdullah123') {
-          // If Supabase has transient network issue, still authorize admin session
-          localStorage.setItem('as_admin_logged_in', 'true');
-          document.cookie = 'as_admin_auth=true; path=/; max-age=604800; SameSite=Lax';
-          window.location.href = '/admin/dashboard';
-          return;
-        }
+      const resData = await res.json();
 
-        setErrorMessage(error.message || 'Invalid admin credentials. Please verify username and password.');
-        setLoading(false);
+      if (res.ok && resData.success) {
+        localStorage.setItem('as_admin_logged_in', 'true');
+        document.cookie = 'as_admin_auth=true; path=/; max-age=604800; SameSite=Lax';
+
+        // Also initiate Supabase auth session in background if possible
+        try {
+          await supabase.auth.signInWithPassword({
+            email: targetEmail,
+            password: password.trim(),
+          });
+        } catch (_) {}
+
+        window.location.href = '/admin/dashboard';
         return;
       }
 
-      if (data?.session) {
+      // If API failed, check direct fallback
+      if (cleanLower === 'admin' && password.trim() === 'abdullah123') {
         localStorage.setItem('as_admin_logged_in', 'true');
         document.cookie = 'as_admin_auth=true; path=/; max-age=604800; SameSite=Lax';
         window.location.href = '/admin/dashboard';
+        return;
       }
+
+      setErrorMessage(resData.error || 'Invalid admin credentials. Please enter admin / abdullah123.');
+      setLoading(false);
     } catch (err: any) {
-      // Offline / network fallback for admin credentials
       if (cleanLower === 'admin' && password.trim() === 'abdullah123') {
         localStorage.setItem('as_admin_logged_in', 'true');
         document.cookie = 'as_admin_auth=true; path=/; max-age=604800; SameSite=Lax';
