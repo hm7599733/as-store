@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Printer, MessageCircle, PhoneCall, MapPin } from 'lucide-react';
+import { Printer, MessageCircle, PhoneCall, MapPin, Trash2 } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 import { normalizePakistaniPhone } from '@/lib/whatsapp';
 import type { Order } from '@/types/database';
@@ -12,13 +12,44 @@ interface DashboardRecentOrdersProps {
   orders: Order[];
 }
 
-export default function DashboardRecentOrders({ orders }: DashboardRecentOrdersProps) {
+export default function DashboardRecentOrders({ orders: initialOrders }: DashboardRecentOrdersProps) {
+  const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    setOrders(initialOrders);
+  }, [initialOrders]);
 
   const handleOpenWhatsApp = (order: Order) => {
     setSelectedOrder(order);
     setIsModalOpen(true);
+  };
+
+  const handleDeleteOrder = async (orderId: string, orderNumber: string) => {
+    const label = orderNumber ? `Order #${orderNumber}` : 'this order';
+    if (!confirm(`Are you sure you want to permanently delete ${label}? All items for this order will be permanently erased.`)) {
+      return;
+    }
+
+    setDeletingId(orderId);
+    try {
+      const res = await fetch(`/api/admin/orders/${orderId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setOrders((prev) => prev.filter((o) => o.id !== orderId));
+      } else {
+        alert(data.error || 'Failed to delete order');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error deleting order');
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   return (
@@ -131,6 +162,17 @@ export default function DashboardRecentOrders({ orders }: DashboardRecentOrdersP
                           <Printer className="w-3.5 h-3.5 text-[#06B6D4]" />
                           <span>Print Slip</span>
                         </Link>
+
+                        {/* Delete Order Button */}
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteOrder(ord.id, ord.order_number || '')}
+                          disabled={deletingId === ord.id}
+                          className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 hover:text-rose-700 transition border border-rose-200 disabled:opacity-50"
+                          title="Permanently Delete Order"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     </td>
                   </tr>

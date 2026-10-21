@@ -21,6 +21,7 @@ import {
   ChevronRight,
   TrendingUp,
   MessageCircle,
+  FolderTree,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
 import AdminNotificationBell from '@/components/admin/AdminNotificationBell';
@@ -79,6 +80,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       group: 'Catalogue Management',
       items: [
         { label: 'Products & Inventory', href: '/admin/products', icon: Package },
+        { label: 'Categories & Hierarchy', href: '/admin/categories', icon: FolderTree },
         { label: 'Coupons & Vouchers', href: '/admin/coupons', icon: Tag },
       ],
     },
@@ -95,6 +97,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     if (segment === 'orders') return 'Orders & Fulfillment';
     if (segment === 'whatsapp') return 'WhatsApp Outreach Center';
     if (segment === 'products') return 'Products & Inventory';
+    if (segment === 'categories') return 'Category Management';
     if (segment === 'coupons') return 'Coupons & Vouchers';
     if (segment === 'settings') return 'Settings & Operations';
     return 'Dashboard Overview';

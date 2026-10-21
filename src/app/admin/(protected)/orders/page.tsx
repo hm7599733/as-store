@@ -21,6 +21,7 @@ import {
   ChevronRight,
   Filter,
   MessageCircle,
+  Trash2,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
 import { formatPrice } from '@/lib/utils';
@@ -107,6 +108,31 @@ export default function AdminOrdersPage() {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleDeleteOrder = async (orderId: string, orderNumber: string) => {
+    const label = orderNumber ? `Order #${orderNumber}` : 'this order';
+    if (!confirm(`Are you sure you want to permanently delete ${label}? All items and history for this order will be permanently erased.`)) {
+      return;
+    }
+
+    setActionLoading(orderId);
+    try {
+      const res = await fetch(`/api/admin/orders/${orderId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setOrders((prev) => prev.filter((o) => o.id !== orderId));
+      } else {
+        alert(data.error || 'Failed to delete order');
+      }
+    } catch (err: any) {
+      console.error('Delete order error:', err);
+      alert('Network error while deleting order');
     } finally {
       setActionLoading(null);
     }
@@ -441,6 +467,17 @@ export default function AdminOrdersPage() {
                           >
                             <FileText className="w-3.5 h-3.5" />
                           </Link>
+
+                          {/* Delete Order Button */}
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteOrder(order.id, order.order_number || '')}
+                            disabled={isProcessing}
+                            className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 hover:text-rose-700 transition border border-rose-200 disabled:opacity-50"
+                            title="Permanently Delete Order"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
 
                           {/* Workflow status advancement buttons */}
                           {order.status === 'pending' && (

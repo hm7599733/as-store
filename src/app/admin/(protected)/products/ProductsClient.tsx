@@ -17,6 +17,7 @@ import {
   RefreshCw,
   Image as ImageIcon,
   Check,
+  FolderTree,
 } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 import type { Product, Category, StockStatus } from '@/types/database';
@@ -278,6 +279,14 @@ export default function ProductsClient() {
             <RefreshCw className={`w-3.5 h-3.5 text-cyan-600 ${loading ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
           </button>
+
+          <Link
+            href="/admin/categories"
+            className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-cyan-200 bg-cyan-50/70 hover:bg-cyan-100/70 text-cyan-900 text-xs font-bold transition shadow-2xs active:scale-95"
+          >
+            <FolderTree className="w-3.5 h-3.5 text-cyan-600" />
+            <span>Manage Categories</span>
+          </Link>
 
           <button
             onClick={openCreateModal}
