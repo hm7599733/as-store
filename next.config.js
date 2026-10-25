@@ -46,6 +46,14 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap',
+        destination: '/sitemap.xml',
+      },
+    ];
+  },
   async redirects() {
     return [
       {
