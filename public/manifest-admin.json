@@ -1,0 +1,50 @@
+{
+  "id": "/admin-suite-manager",
+  "name": "AS Admin Suite — Store Manager",
+  "short_name": "AS Admin",
+  "description": "Executive Store Manager: Real-time order alerts with sound fanfare, category editor, product inventory, and customer dispatch.",
+  "start_url": "/admin/dashboard",
+  "scope": "/admin",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#070D1E",
+  "theme_color": "#0B132B",
+  "categories": ["business", "productivity", "management"],
+  "icons": [
+    {
+      "src": "/icon-admin-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-admin-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-admin-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Live Orders",
+      "url": "/admin/orders",
+      "description": "View and manage incoming customer orders"
+    },
+    {
+      "name": "Manage Products",
+      "url": "/admin/products",
+      "description": "Add, edit, and restock products"
+    },
+    {
+      "name": "Category Manager",
+      "url": "/admin/categories",
+      "description": "Organize store categories"
+    }
+  ]
+}

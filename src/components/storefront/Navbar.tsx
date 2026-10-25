@@ -20,6 +20,7 @@ import {
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import AsStoreLogo from '@/components/brand/AsStoreLogo';
+import InstallStoreAppButton from '@/components/storefront/InstallStoreAppButton';
 import type { Category, Settings } from '@/types/database';
 
 export default function Navbar({
@@ -215,6 +216,9 @@ export default function Navbar({
               <span>Wishlist</span>
             </Link>
 
+            {/* In-App Customer Install Button */}
+            <InstallStoreAppButton variant="navbar" />
+
             {/* Cyber Cyan Cart Button */}
             <button
               onClick={openCart}
@@ -385,6 +389,9 @@ export default function Navbar({
             </div>
 
             <div className="space-y-2 font-semibold text-sm">
+              <div className="pb-2">
+                <InstallStoreAppButton variant="mobile" />
+              </div>
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}

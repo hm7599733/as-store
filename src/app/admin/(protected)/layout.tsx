@@ -26,6 +26,7 @@ import {
 import { supabase } from '@/lib/supabase/client';
 import AdminNotificationBell from '@/components/admin/AdminNotificationBell';
 import AdminSuperAlertProvider from '@/components/admin/AdminSuperAlertProvider';
+import InstallAdminAppButton from '@/components/admin/InstallAdminAppButton';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -213,6 +214,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         {/* Bottom Actions & User Profile */}
         <div className="pt-6 border-t border-slate-200/90 space-y-2.5">
+          {/* Dedicated Admin App Install Button */}
+          <InstallAdminAppButton variant="sidebar" />
+
           {/* Customer Storefront Link */}
           <Link
             href="/"
@@ -274,6 +278,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             {/* Notification Bell */}
             <AdminNotificationBell />
+
+            {/* Install Admin App Button */}
+            <InstallAdminAppButton variant="header" />
 
             {/* Direct Storefront link */}
             <Link

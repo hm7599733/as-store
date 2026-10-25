@@ -11,6 +11,7 @@ import {
   MapPin,
 } from 'lucide-react';
 import AsStoreLogo from '@/components/brand/AsStoreLogo';
+import InstallStoreAppButton from '@/components/storefront/InstallStoreAppButton';
 import type { Settings } from '@/types/database';
 
 export default function Footer({ settings }: { settings: Settings | null }) {
@@ -159,6 +160,9 @@ export default function Footer({ settings }: { settings: Settings | null }) {
               </li>
               <li>
                 <Link href="/privacy-policy" className="hover:text-[#06B6D4] transition">Privacy Policy</Link>
+              </li>
+              <li className="pt-2">
+                <InstallStoreAppButton variant="footer" />
               </li>
               <li>
                 <Link href="/admin/login" className="hover:text-[#06B6D4] transition text-[11px] text-slate-500 block pt-1">

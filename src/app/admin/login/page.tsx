@@ -15,6 +15,18 @@ export default function AdminLoginPage() {
 
   // If already authenticated, redirect to dashboard
   useEffect(() => {
+    try {
+      let manifestLink = document.querySelector('link[rel="manifest"]') as HTMLLinkElement | null;
+      if (manifestLink) {
+        manifestLink.setAttribute('href', '/manifest-admin.json');
+      } else {
+        manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        manifestLink.href = '/manifest-admin.json';
+        document.head.appendChild(manifestLink);
+      }
+    } catch {}
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         window.location.href = '/admin/dashboard';

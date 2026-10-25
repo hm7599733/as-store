@@ -31,13 +31,20 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'AS Store',
+  },
   icons: {
     icon: '/favicon.ico',
+    apple: '/icon-customer-192.png',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#FFFFFF',
+  themeColor: '#070D1E',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
