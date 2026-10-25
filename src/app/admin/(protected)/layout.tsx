@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
 import AdminNotificationBell from '@/components/admin/AdminNotificationBell';
+import AdminSuperAlertProvider from '@/components/admin/AdminSuperAlertProvider';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -115,7 +116,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 flex flex-col md:flex-row font-sans">
+    <AdminSuperAlertProvider>
+      <div className="min-h-screen bg-[#F8FAFC] text-slate-800 flex flex-col md:flex-row font-sans">
       {/* Mobile Top Header */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[#0B132B] text-white border-b border-slate-800 shadow-2xs">
         <Link href="/admin/dashboard" className="flex items-center gap-2.5">
@@ -291,5 +293,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </main>
       </div>
     </div>
-  );
+  </AdminSuperAlertProvider>
+);
 }
