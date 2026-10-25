@@ -38,8 +38,16 @@ export const metadata: Metadata = {
     title: 'AS Store',
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/icon-customer-192.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/icon-customer-192.png', sizes: '192x192', type: 'image/png' },
+    ],
   },
 };
 
@@ -60,6 +68,13 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="dark" className="dark">
       <head>
+        {/* Google Search Favicon Guidelines (multiples of 48px: 48x48, 96x96, 192x192) */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="192x192" href="/icon-customer-192.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
